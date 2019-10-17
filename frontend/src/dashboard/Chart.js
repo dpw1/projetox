@@ -15,10 +15,10 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData("00:00", 0),
-  createData("03:00", 300),
-  createData("06:00", 600),
-  createData("09:00", 800),
+  createData("1", 0),
+  createData("2", 300),
+  createData("3", 600),
+  createData("4", 800),
   createData("12:00", 1500),
   createData("15:00", 2000),
   createData("18:00", 2400),
@@ -29,7 +29,7 @@ const data = [
 export default function Chart() {
   return (
     <React.Fragment>
-      <Title>Faturamento de Hoje</Title>
+      <Title>Faturamento Diário</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}

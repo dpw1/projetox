@@ -18,8 +18,9 @@ import ListIcon from "@material-ui/icons/List";
 import StarBorder from "@material-ui/icons/StarBorder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import SettingsIcon from "@material-ui/icons/Settings";
+import { withRouter } from "react-router-dom";
 
-export const MainListItems = () => {
+const ListItems = props => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -27,7 +28,7 @@ export const MainListItems = () => {
   };
   return (
     <div>
-      <ListItem button>
+      <ListItem button onClick={() => props.history.push("/")}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
@@ -43,7 +44,7 @@ export const MainListItems = () => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button>
+          <ListItem button onClick={() => props.history.push("/products/new")}>
             <ListItemIcon>
               <AddIcon></AddIcon>
             </ListItemIcon>
@@ -81,6 +82,8 @@ export const MainListItems = () => {
     </div>
   );
 };
+
+export default withRouter(ListItems);
 
 export const secondaryListItems = (
   <div>

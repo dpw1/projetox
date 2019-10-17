@@ -5,13 +5,17 @@
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
+    "autosuggest-highlight": "^3.1.1",
     "axios": "^0.19.0",
     "react": "^16.9.0",
+    "react-autosuggest": "^9.4.3",
     "react-dom": "^16.9.0",
     "react-hook-form": "^3.23.12",
+    "react-localization": "^1.0.15",
     "react-router": "^5.1.1",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
+    "react-select": "^3.0.8",
     "recharts": "^1.7.1",
     "validator": "^11.1.0"
   },

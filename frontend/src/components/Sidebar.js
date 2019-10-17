@@ -13,7 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
-import { MainListItems } from "../dashboard/listItems";
+import ListItems from "../dashboard/ListItems";
 
 const drawerWidth = 240;
 
@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -155,7 +155,7 @@ export default function Sidebar() {
         </div>
         <Divider />
         <List>
-          <MainListItems></MainListItems>
+          <ListItems></ListItems>
         </List>
       </Drawer>
     </div>

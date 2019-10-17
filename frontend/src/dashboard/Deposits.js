@@ -16,7 +16,7 @@ export default function Deposits() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Depósitos Recentes</Title>
+      <Title>Acumulados de Venda do Mês</Title>
       <Typography component="p" variant="h4">
         €3,024.00
       </Typography>
