@@ -15,6 +15,7 @@ import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
+import CategoryForm from "./CategoryForm";
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+      width: 1200,
       marginLeft: "auto",
       marginRight: "auto"
     }
@@ -56,17 +57,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const steps = [
-  "Shipping address",
-  "Payment details",
-  "Review your order",
-  "new"
-];
+const steps = ["Categoria", "Dados", "Variações"];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <CategoryForm />;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -94,7 +90,7 @@ export default function NewProductPage() {
       <div className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Novo Produto
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (
@@ -130,7 +126,9 @@ export default function NewProductPage() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 1
+                      ? "Place order"
+                      : "Próximo"}
                   </Button>
                 </div>
               </React.Fragment>

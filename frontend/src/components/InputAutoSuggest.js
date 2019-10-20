@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import deburr from "lodash/deburr";
 import Autosuggest from "react-autosuggest";
 import match from "autosuggest-highlight/match";
@@ -119,15 +119,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CustomFormSelect(props) {
+export default function InputAutoSuggest(props) {
   const classes = useStyles();
-  const { suggestions, label, id, placeholder, customName } = props;
+  const {
+    suggestions,
+    label,
+    id,
+    placeholder,
+    customName,
+    customProps
+  } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [state, setState] = React.useState({
     single: "",
     popper: ""
   });
-  const { register } = useFormContext(); // retrieve all hook methods
+  const { register, setValue } = useFormContext(); // retrieve all hook methods
 
   //   console.log(props);
 
@@ -138,13 +145,19 @@ export default function CustomFormSelect(props) {
       <TextField
         fullWidth
         name={customName}
-        inputRef={register(inputRef)}
+        ref={ref}
+        inputRef={inputRef}
         {...other}
       />
     );
   }
 
   const [stateSuggestions, setSuggestions] = React.useState([]);
+
+  const initiateHookForm = val => {
+    register({ name: customName, type: `custom-${customName}` }, customProps);
+    setValue(customName, val);
+  };
 
   const handleSuggestionsFetchRequested = ({ value }) => {
     setSuggestions(getSuggestions(value, suggestions));
@@ -159,7 +172,13 @@ export default function CustomFormSelect(props) {
       ...state,
       [name]: newValue
     });
+    initiateHookForm(newValue);
   };
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    initiateHookForm("");
+  }, []);
 
   const autosuggestProps = {
     renderInputComponent,
@@ -172,7 +191,6 @@ export default function CustomFormSelect(props) {
 
   return (
     <div className={classes.root}>
-      <input name="test" ref={register} />
       <Autosuggest
         {...autosuggestProps}
         inputProps={{

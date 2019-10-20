@@ -19,6 +19,7 @@ import StarBorder from "@material-ui/icons/StarBorder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { withRouter } from "react-router-dom";
+import { URLS } from "../assets/urls";
 
 const ListItems = props => {
   const [open, setOpen] = useState(false);
@@ -44,7 +45,10 @@ const ListItems = props => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button onClick={() => props.history.push("/products/new")}>
+          <ListItem
+            button
+            onClick={() => props.history.push(URLS.newProductEan)}
+          >
             <ListItemIcon>
               <AddIcon></AddIcon>
             </ListItemIcon>

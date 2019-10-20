@@ -15,6 +15,8 @@ import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
+import { withRouter } from "react-router-dom";
+import { URLS } from "../assets/urls";
 
 import EANForm from "./EANForm";
 
@@ -60,7 +62,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NewEANPage() {
+const NewEANPage = props => {
   const classes = useStyles();
 
   return (
@@ -73,10 +75,26 @@ export default function NewEANPage() {
           </Typography>
           <React.Fragment>
             <EANForm></EANForm>
+            <Link
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                props.history.push(URLS.newProduct);
+              }}
+              style={{
+                margin: "0 auto",
+                display: "table",
+                textAlign: "center"
+              }}
+            >
+              Não encontrei, quero cadastrar um novo produto
+            </Link>
           </React.Fragment>
         </Paper>
         <Copyright />
       </div>
     </main>
   );
-}
+};
+
+export default withRouter(NewEANPage);

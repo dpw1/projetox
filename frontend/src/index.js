@@ -6,8 +6,8 @@ import App from "./App";
 import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./login/LoginPage";
 import SignUpPage from "./signup/SignUpPage";
-
 import NewEANPage from "./product/NewEANPage";
+import NewProductPage from "./product/NewProductPage";
 import * as serviceWorker from "./serviceWorker";
 import { getUserData } from "./utils/api";
 import { URLS } from "./assets/urls";
@@ -27,9 +27,10 @@ const render = (
           component={!!getUserData ? Dashboard : LoginPage}
         />
         <Route exact path={URLS.dashboard} component={Dashboard} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/signup" component={SignUpPage} />
-        <Route exact path={URLS.newProduct} component={NewEANPage} />
+        <Route exact path={URLS.login} component={LoginPage} />
+        <Route exact path={URLS.signUp} component={SignUpPage} />
+        <Route exact path={URLS.newProductEan} component={NewEANPage} />
+        <Route exact path={URLS.newProduct} component={NewProductPage} />
       </Switch>
     </BrowserRouter>
   </div>

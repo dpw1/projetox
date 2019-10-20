@@ -13,7 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
-import ListItems from "../dashboard/ListItems";
+import ListItems from "./ListItems";
 
 const drawerWidth = 240;
 
@@ -135,7 +135,7 @@ export default function Sidebar(props) {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Surprise
           </Typography>
           <Button color="inherit">Logout</Button>
         </Toolbar>

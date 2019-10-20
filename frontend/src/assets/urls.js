@@ -1,5 +1,7 @@
 export const URLS = {
   dashboard: "/",
-  newProductEan: "/products/new-ean",
-  newProduct: "/products/new"
+  newProductEan: "/products/ean",
+  newProduct: "/products/new",
+  signUp: "/signup",
+  login: "/login"
 };

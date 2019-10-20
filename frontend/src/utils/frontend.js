@@ -22,3 +22,23 @@ export function getCookie(name) {
 export function eraseCookie(name) {
   document.cookie = name + "=; Max-Age=-99999999;";
 }
+
+/**
+ *
+ * @param {STR} id
+ * @param {OBJ} node
+ *
+ * example:
+ */
+export function getNodeById(id, node) {
+  var reduce = [].reduce;
+  function runner(result, node) {
+    if (result || !node) return result;
+    return (
+      (node.id === id && node) ||
+      runner(null, node.children) ||
+      reduce.call(Object(node), runner, result)
+    );
+  }
+  return runner(null, node);
+}
