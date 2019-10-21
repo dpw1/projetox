@@ -38,6 +38,15 @@ class SimpleList extends React.Component {
     this.props.updateCurrentItem && this.props.updateCurrentItem(el);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    /**
+     * if JSON content is different, remove the "selected" class.
+     */
+    if (JSON.stringify(prevProps.items) !== JSON.stringify(this.props.items)) {
+      this.setState({ selected: null });
+    }
+  }
+
   render() {
     const { classes, items } = this.props;
     const { selected } = this.state;

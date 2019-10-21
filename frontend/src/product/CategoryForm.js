@@ -20,7 +20,7 @@ const gridSize = {
   md: 3,
   lg: 3
 };
-export default function CategoryForm() {
+export default function CategoryForm(props) {
   const [item, setItem] = useState({});
   const [itemChildren, setItemChildren] = useState({});
 
@@ -38,23 +38,24 @@ export default function CategoryForm() {
     setItem(currentItem);
   };
 
-  const GenerateChildrenList = data => {
-    return <React.Fragment></React.Fragment>;
-  };
+  const currentTableUserIsOn = id =>
+    id ? [...id].filter(e => e === "_").length : undefined;
+
+  const handleBlockNextStepButton = id => props.blockNextStepButton();
 
   useEffect(() => {
-    const populateTablesWithChildren = () => {
+    const populateListsWithChildren = () => {
       if (!item.id) return;
 
       const addChildrenToTable = children => {
         if (!children) return;
-        const tableId = [...children[0].id].filter(e => e === "_").length;
+        const tableId = currentTableUserIsOn(children[0].id);
 
         if (tableId === 1) {
           setItemChildren({
             first: children,
-            second: [],
-            third: []
+            second: null,
+            third: null
           });
         }
 
@@ -62,7 +63,7 @@ export default function CategoryForm() {
           setItemChildren({
             ...itemChildren,
             second: children,
-            third: []
+            third: null
           });
         }
 
@@ -77,11 +78,11 @@ export default function CategoryForm() {
       let productCategory = getProductCategories(item.id[0]);
       let list = getNodeById(item.id, productCategory);
 
-      console.log(productCategory, list);
       addChildrenToTable(list.children);
     };
 
-    populateTablesWithChildren();
+    populateListsWithChildren();
+    props.blockNextStepButton(currentTableUserIsOn(item.id) !== 3);
   }, [item]);
 
   return (

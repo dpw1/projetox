@@ -59,22 +59,10 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ["Categoria", "Dados", "Variações"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <CategoryForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 export default function NewProductPage() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [blockNextStepButton, setBlockNextStepButton] = React.useState(false);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -82,6 +70,23 @@ export default function NewProductPage() {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleBlockNextStepButton = value => {
+    setBlockNextStepButton(value);
+  };
+
+  const getStepContent = step => {
+    switch (step) {
+      case 0:
+        return <CategoryForm blockNextStepButton={handleBlockNextStepButton} />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error("Unknown step");
+    }
   };
 
   return (
@@ -124,6 +129,7 @@ export default function NewProductPage() {
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
+                    disabled={blockNextStepButton}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1
