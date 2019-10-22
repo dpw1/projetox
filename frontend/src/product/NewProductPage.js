@@ -122,7 +122,7 @@ export default function NewProductPage() {
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
-                      Back
+                      Voltar
                     </Button>
                   )}
                   <Button
@@ -132,9 +132,7 @@ export default function NewProductPage() {
                     disabled={blockNextStepButton}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1
-                      ? "Place order"
-                      : "Próximo"}
+                    {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
                   </Button>
                 </div>
               </React.Fragment>

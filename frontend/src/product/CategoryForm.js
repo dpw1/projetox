@@ -16,6 +16,7 @@ import {
 
 const productFloresURL = "https://api.jsonbin.io/b/5dabbb03eb13b2547d2bb9e2";
 const gridSize = {
+  xs: 12,
   sm: 12,
   md: 3,
   lg: 3
