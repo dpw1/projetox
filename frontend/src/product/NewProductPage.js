@@ -16,6 +16,9 @@ import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
 import CategoryForm from "./CategoryForm";
+import DataForm from "./DataForm";
+import useForm, { FormContext } from "react-hook-form";
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
@@ -61,11 +64,21 @@ const steps = ["Categoria", "Dados", "Variações"];
 
 export default function NewProductPage() {
   const classes = useStyles();
+  const [formData, setFormData] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
   const [blockNextStepButton, setBlockNextStepButton] = React.useState(false);
+  const methods = useForm();
+
+  const onSubmit = () => {
+    // const { category } = data;
+    console.log("submit");
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+
+    const data = methods.getValues();
+    console.log(data);
   };
 
   const handleBack = () => {
@@ -79,9 +92,20 @@ export default function NewProductPage() {
   const getStepContent = step => {
     switch (step) {
       case 0:
-        return <CategoryForm blockNextStepButton={handleBlockNextStepButton} />;
+        return (
+          <CategoryForm
+            customName="category"
+            customProps={{ required: true }}
+            blockNextStepButton={handleBlockNextStepButton}
+          />
+        );
       case 1:
-        return <PaymentForm />;
+        return (
+          <DataForm
+            customProps={{ required: true }}
+            blockNextStepButton={handleBlockNextStepButton}
+          />
+        );
       case 2:
         return <Review />;
       default:
@@ -105,19 +129,8 @@ export default function NewProductPage() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
+            <FormContext {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
@@ -131,12 +144,13 @@ export default function NewProductPage() {
                     onClick={handleNext}
                     disabled={blockNextStepButton}
                     className={classes.button}
+                    type={"button"}
                   >
-                    {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
+                    {activeStep === 1 ? "Cadastrar" : "Próximo"}
                   </Button>
                 </div>
-              </React.Fragment>
-            )}
+              </form>
+            </FormContext>
           </React.Fragment>
         </Paper>
         <Copyright />

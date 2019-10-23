@@ -7,6 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SimpleList from "../components/SimpleList";
 import axios from "axios";
 import { getNodeById } from "../utils/frontend";
+import { useFormContext } from "react-hook-form";
 
 import {
   productCategories,
@@ -24,6 +25,8 @@ const gridSize = {
 export default function CategoryForm(props) {
   const [item, setItem] = useState({});
   const [itemChildren, setItemChildren] = useState({});
+  const { blockNextStepButton, customProps, customName } = props;
+  const { register, setValue } = useFormContext(); // retrieve all hook methods
 
   const getProductCategories = id => {
     if (id === "1") {
@@ -39,10 +42,13 @@ export default function CategoryForm(props) {
     setItem(currentItem);
   };
 
+  const addDataToForm = id => {
+    register({ name: customName, type: `custom-${customName}` }, customProps);
+    setValue(customName, id);
+  };
+
   const currentTableUserIsOn = id =>
     id ? [...id].filter(e => e === "_").length : undefined;
-
-  const handleBlockNextStepButton = id => props.blockNextStepButton();
 
   useEffect(() => {
     const populateListsWithChildren = () => {
@@ -80,10 +86,14 @@ export default function CategoryForm(props) {
       let list = getNodeById(item.id, productCategory);
 
       addChildrenToTable(list.children);
+
+      if (currentTableUserIsOn(item.id) === 3) {
+        addDataToForm(item.id);
+      }
     };
 
     populateListsWithChildren();
-    props.blockNextStepButton(currentTableUserIsOn(item.id) !== 3);
+    blockNextStepButton(currentTableUserIsOn(item.id) !== 3);
   }, [item]);
 
   return (
