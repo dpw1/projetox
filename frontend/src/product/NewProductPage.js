@@ -15,8 +15,10 @@ import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
+import Badge from "@material-ui/core/Badge";
 import CategoryForm from "./CategoryForm";
 import DataForm from "./DataForm";
+import VariationsForm from "./VariationsForm";
 import useForm, { FormContext } from "react-hook-form";
 
 const useStyles = makeStyles(theme => ({
@@ -90,6 +92,7 @@ export default function NewProductPage() {
   };
 
   const getStepContent = step => {
+    step = 2;
     switch (step) {
       case 0:
         return (
@@ -107,7 +110,7 @@ export default function NewProductPage() {
           />
         );
       case 2:
-        return <Review />;
+        return <VariationsForm />;
       default:
         throw new Error("Unknown step");
     }
@@ -122,11 +125,17 @@ export default function NewProductPage() {
             Novo Produto
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
+            {steps.map(label => {
+              console.log(label);
+              return (
+                <Step key={label}>
+                  <StepLabel>
+                    {label}
+                    {label === "Variações" && <Badge badgeContent={4}></Badge>}
+                  </StepLabel>
+                </Step>
+              );
+            })}
           </Stepper>
           <React.Fragment>
             <FormContext {...methods}>
@@ -146,7 +155,7 @@ export default function NewProductPage() {
                     className={classes.button}
                     type={"button"}
                   >
-                    {activeStep === 1 ? "Cadastrar" : "Próximo"}
+                    {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
                   </Button>
                 </div>
               </form>
