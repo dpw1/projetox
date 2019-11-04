@@ -18,15 +18,16 @@ import Copyright from "../components/Copyright";
 import Badge from "@material-ui/core/Badge";
 import CategoryForm from "./CategoryForm";
 import DataForm from "./DataForm";
-import VariationsForm from "./VariationsForm";
+import Variation from "./Variation";
 import useForm, { FormContext } from "react-hook-form";
+import VariationForm from "./VariationForm";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    position: "relative"
+    position: "relative",
   },
   main: {
-    display: "flex"
+    display: "flex",
   },
   layout: {
     width: "auto",
@@ -36,8 +37,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 1200,
       marginLeft: "auto",
-      marginRight: "auto"
-    }
+      marginRight: "auto",
+    },
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -46,20 +47,23 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5)
+    padding: theme.spacing(3, 0, 5),
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
   },
   buttons: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
-  }
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const steps = ["Categoria", "Dados", "Variações"];
@@ -110,7 +114,7 @@ export default function NewProductPage() {
           />
         );
       case 2:
-        return <VariationsForm />;
+        return <VariationForm />;
       default:
         throw new Error("Unknown step");
     }
@@ -118,7 +122,7 @@ export default function NewProductPage() {
 
   return (
     <main className={classes.main}>
-      <Sidebar></Sidebar>
+      <Sidebar />
       <div className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -129,10 +133,7 @@ export default function NewProductPage() {
               console.log(label);
               return (
                 <Step key={label}>
-                  <StepLabel>
-                    {label}
-                    {label === "Variações" && <Badge badgeContent={4}></Badge>}
-                  </StepLabel>
+                  <StepLabel>{label}</StepLabel>
                 </Step>
               );
             })}
@@ -153,8 +154,7 @@ export default function NewProductPage() {
                     onClick={handleNext}
                     disabled={blockNextStepButton}
                     className={classes.button}
-                    type={"button"}
-                  >
+                    type={"button"}>
                     {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
                   </Button>
                 </div>
