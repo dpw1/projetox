@@ -21,6 +21,7 @@
     "react-select": "^3.0.8",
     "react-window": "^1.8.5",
     "recharts": "^1.7.1",
+    "uuid": "^3.3.3",
     "validator": "^11.1.0"
   },
   "scripts": {

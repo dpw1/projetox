@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Variation from "./Variation";
+import uuid from "uuid";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -19,20 +20,37 @@ const useStyles = makeStyles(theme => ({
 
 export default function FloatingActionButtons() {
   const classes = useStyles();
-  const [variations, setVariations] = useState(0);
+  const [variations, setVariations] = useState([
+    {
+      id: 123,
+    },
+    {
+      id: 1,
+    },
+  ]);
 
-  const handleCreateVariation = () => {
-    setVariations(variations + 1);
+  const handleCreate = () => {
+    setVariations([
+      ...variations,
+      {
+        id: uuid(),
+      },
+    ]);
+  };
+
+  const handleDelete = id => {
+    var newVariations = variations.filter(e => e.id !== id);
+    setVariations(newVariations);
   };
 
   return (
     <div>
-      <Variation />
-      {[...Array(variations).keys()].map((e, i) => (
-        <Variation />
+      <Variation disabled={true} />
+      {variations.map((e, i) => (
+        <Variation key={e.id} id={e.id} handleDelete={handleDelete} />
       ))}
       <Button
-        onClick={handleCreateVariation}
+        onClick={handleCreate}
         variant="contained"
         color="primary"
         className={classes.button}>

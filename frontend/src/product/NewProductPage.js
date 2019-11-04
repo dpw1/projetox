@@ -130,7 +130,6 @@ export default function NewProductPage() {
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => {
-              console.log(label);
               return (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>

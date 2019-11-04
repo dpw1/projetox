@@ -166,6 +166,10 @@ export default function Variation(props) {
 
   const pictures = 3;
 
+  const handleDelete = id => {
+    props.handleDelete(id);
+  };
+
   const handleShowMultiplePrice = val => {
     if (val !== "pricePerMarket") {
       return setIsMultiplePrice(false);
@@ -279,6 +283,7 @@ export default function Variation(props) {
             className={classes.radioGroup}
             onChange={e => handleShowMultiplePrice(e.target.value)}>
             <Grid
+              item
               md={4}
               sm={4}
               xs={12}
@@ -308,7 +313,7 @@ export default function Variation(props) {
               </div>
             </Grid>
 
-            <Grid md={4} sm={4} xs={12}>
+            <Grid item md={4} sm={4} xs={12}>
               <FormControlLabel
                 value="pricePerMarket"
                 control={<StyledRadio />}
@@ -344,14 +349,18 @@ export default function Variation(props) {
           </RadioGroup>
         </Grid>
       </Grid>
-      <Grid xs={12}>
+      <Grid>
         <Button
           size="medium"
           variant="contained"
           color="secondary"
+          disabled={props.disabled}
           className={classes.button}
+          fontSize="small"
+          onClick={() => handleDelete(props.id)}
           style={{ float: "right" }}>
           <DeleteIcon fontSize="small" />
+          Remover
         </Button>
       </Grid>
       <Divider className={classes.divider} />
