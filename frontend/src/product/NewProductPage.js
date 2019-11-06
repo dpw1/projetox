@@ -96,7 +96,7 @@ export default function NewProductPage() {
   };
 
   const getStepContent = step => {
-    step = 2;
+    // step = 2;
     switch (step) {
       case 0:
         return (

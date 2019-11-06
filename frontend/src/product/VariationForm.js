@@ -22,10 +22,7 @@ export default function FloatingActionButtons() {
   const classes = useStyles();
   const [variations, setVariations] = useState([
     {
-      id: 123,
-    },
-    {
-      id: 1,
+      id: uuid(),
     },
   ]);
 
@@ -45,9 +42,14 @@ export default function FloatingActionButtons() {
 
   return (
     <div>
-      <Variation disabled={true} />
       {variations.map((e, i) => (
-        <Variation key={e.id} id={e.id} handleDelete={handleDelete} />
+        <Variation
+          key={e.id}
+          id={e.id}
+          formId={i}
+          handleDelete={handleDelete}
+          disabled={i === 0 ? true : false}
+        />
       ))}
       <Button
         onClick={handleCreate}

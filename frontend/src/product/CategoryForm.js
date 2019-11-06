@@ -12,7 +12,7 @@ import { useFormContext } from "react-hook-form";
 import {
   productCategories,
   productCategoriesFlores,
-  productCategoriesGiftCards
+  productCategoriesGiftCards,
 } from "../assets/dummydata";
 
 const productFloresURL = "https://api.jsonbin.io/b/5dabbb03eb13b2547d2bb9e2";
@@ -20,7 +20,7 @@ const gridSize = {
   xs: 12,
   sm: 12,
   md: 3,
-  lg: 3
+  lg: 3,
 };
 export default function CategoryForm(props) {
   const [item, setItem] = useState({});
@@ -42,15 +42,15 @@ export default function CategoryForm(props) {
     setItem(currentItem);
   };
 
-  const addDataToForm = id => {
-    register({ name: customName, type: `custom-${customName}` }, customProps);
-    setValue(customName, id);
-  };
-
   const currentTableUserIsOn = id =>
     id ? [...id].filter(e => e === "_").length : undefined;
 
   useEffect(() => {
+    const addDataToForm = id => {
+      register({ name: customName, type: `custom-${customName}` }, customProps);
+      setValue(customName, id);
+    };
+
     const populateListsWithChildren = () => {
       if (!item.id) return;
 
@@ -62,7 +62,7 @@ export default function CategoryForm(props) {
           setItemChildren({
             first: children,
             second: null,
-            third: null
+            third: null,
           });
         }
 
@@ -70,14 +70,14 @@ export default function CategoryForm(props) {
           setItemChildren({
             ...itemChildren,
             second: children,
-            third: null
+            third: null,
           });
         }
 
         if (tableId === 3) {
           setItemChildren({
             ...itemChildren,
-            third: children
+            third: children,
           });
         }
       };
@@ -94,7 +94,7 @@ export default function CategoryForm(props) {
 
     populateListsWithChildren();
     blockNextStepButton(currentTableUserIsOn(item.id) !== 3);
-  }, [item]);
+  }, [item]); // eslint-disable-line
 
   return (
     <React.Fragment>
@@ -106,25 +106,25 @@ export default function CategoryForm(props) {
           <SimpleList
             items={[...productCategories]}
             updateCurrentItem={updateCurrentItem}
-          ></SimpleList>
+          />
         </Grid>
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.first ? itemChildren.first : null}
             updateCurrentItem={updateCurrentItem}
-          ></SimpleList>
+          />
         </Grid>
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.second ? itemChildren.second : null}
             updateCurrentItem={updateCurrentItem}
-          ></SimpleList>
+          />
         </Grid>
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.third ? itemChildren.third : null}
             updateCurrentItem={updateCurrentItem}
-          ></SimpleList>
+          />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -10,9 +10,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -162,6 +159,7 @@ export default function Variation(props) {
   const { blockNextStepButton, customProps, customName } = props;
   const { register, setValue } = useFormContext(); // retrieve all hook methods
   const [isMultiplePrice, setIsMultiplePrice] = useState(false);
+
   const classes = useStyles();
 
   const pictures = 3;
@@ -187,7 +185,7 @@ export default function Variation(props) {
             label="Seu SKU *"
             className={clsx(classes.textField)}
             type="text"
-            name="sku"
+            name={`${props.id}-sku`}
             inputRef={register({ required: true })}
           />
         </Grid>
@@ -196,7 +194,7 @@ export default function Variation(props) {
             label="Nome do Produto *"
             className={clsx(classes.textField)}
             type="text"
-            name="productName"
+            name={`${props.id}-productName`}
             inputRef={register({ required: true })}
           />
         </Grid>
@@ -349,7 +347,7 @@ export default function Variation(props) {
           </RadioGroup>
         </Grid>
       </Grid>
-      <Grid>
+      <Grid style={{ display: "block", width: "100%" }}>
         <Button
           size="medium"
           variant="contained"
@@ -363,6 +361,7 @@ export default function Variation(props) {
           Remover
         </Button>
       </Grid>
+
       <Divider className={classes.divider} />
     </div>
   );
