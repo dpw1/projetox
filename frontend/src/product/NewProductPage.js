@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,7 +10,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import AddressForm from "./AddressForm";
+
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
@@ -70,21 +70,51 @@ const steps = ["Categoria", "Dados", "Variações"];
 
 export default function NewProductPage() {
   const classes = useStyles();
-  const [formData, setFormData] = React.useState({});
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [blockNextStepButton, setBlockNextStepButton] = React.useState(false);
+  const [formData, setFormData] = useState({});
+  const [activeStep, setActiveStep] = useState(0);
+  const [blockNextStepButton, setBlockNextStepButton] = useState(false);
   const methods = useForm();
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   const onSubmit = () => {
-    // const { category } = data;
     console.log("submit");
   };
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  const processData = data => {
+    const processedData = { variants: [] };
 
-    const data = methods.getValues();
-    console.log(data);
+    for (const key in data) {
+      if (key.includes("id_")) {
+        const [_, index, subkey] = key.match(/^id_(\d+)-(\w+)$/);
+
+        if (!processedData.variants[index]) {
+          processedData.variants[index] = {};
+        }
+
+        processedData.variants[index][subkey] = data[key];
+      } else {
+        processedData[key] = data[key];
+      }
+    }
+
+    return processedData;
+  };
+
+  const handleNext = async () => {
+    /**
+     * TODO:
+     * 1. formulate how json will be;
+     * 2. clean up data for the Variations, they should be in specific arrays
+     */
+    setFormData(prevState => {
+      return processData({ ...prevState, ...methods.getValues() });
+    });
+
+    if (activeStep >= 2) return;
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {

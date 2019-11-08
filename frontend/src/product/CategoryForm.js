@@ -98,9 +98,28 @@ export default function CategoryForm(props) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center">
+        Qual produto você deseja vender?
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom align="center">
+        <b>Atenção:</b> o título abaixo é como o item será exibido nos sites
+      </Typography>
+
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={12} sm={12}>
+          <TextField
+            label="Nome do Produto"
+            type="text"
+            name="productName"
+            inputRef={register({ required: true })}
+            style={{ width: "100%", marginBottom: 30 }}
+          />
+        </Grid>
+      </Grid>
+      <Typography variant="h5" gutterBottom align="center">
         Aonde aparecerá em nosso site?
       </Typography>
+
       <Grid container spacing={1}>
         <Grid item {...gridSize}>
           <SimpleList

@@ -156,7 +156,7 @@ function StyledRadio(props) {
 }
 
 export default function Variation(props) {
-  const { blockNextStepButton, customProps, customName } = props;
+  const { blockNextStepButton, formId } = props;
   const { register, setValue } = useFormContext(); // retrieve all hook methods
   const [isMultiplePrice, setIsMultiplePrice] = useState(false);
 
@@ -185,7 +185,7 @@ export default function Variation(props) {
             label="Seu SKU *"
             className={clsx(classes.textField)}
             type="text"
-            name={`${props.id}-sku`}
+            name={`${formId}-sku`}
             inputRef={register({ required: true })}
           />
         </Grid>
@@ -194,7 +194,7 @@ export default function Variation(props) {
             label="Nome do Produto *"
             className={clsx(classes.textField)}
             type="text"
-            name={`${props.id}-productName`}
+            name={`${formId}-productName`}
             inputRef={register({ required: true })}
           />
         </Grid>
@@ -203,7 +203,7 @@ export default function Variation(props) {
             label="EAN"
             className={clsx(classes.textField)}
             type="text"
-            name="ean"
+            name={`${formId}-ean`}
             inputRef={register({ required: false })}
           />
         </Grid>
@@ -217,7 +217,7 @@ export default function Variation(props) {
           <Grid item className={classes.iconInput}>
             <TextField
               id="input-with-icon-grid"
-              name="picture1"
+              name={`${formId}-picture1`}
               label="Foto 1 *"
               inputRef={register({ required: true })}
             />
@@ -238,7 +238,7 @@ export default function Variation(props) {
               <Grid item className={classes.iconInput}>
                 <TextField
                   id="input-with-icon-grid"
-                  name={`picture${id}`}
+                  name={`${formId}-picture${id}`}
                   label={`Foto ${id}`}
                   inputRef={register({ required: false })}
                 />
@@ -260,7 +260,7 @@ export default function Variation(props) {
             label="Quantidade *"
             className={clsx(classes.textField)}
             type="text"
-            name="quantity"
+            name={`${formId}-quantity`}
             inputRef={register({ required: true })}
             inputProps={{
               min: "0",
@@ -278,6 +278,7 @@ export default function Variation(props) {
             defaultValue="priceUnique"
             aria-label="price"
             name="price-radios"
+            name={`${formId}-price-radios`}
             className={classes.radioGroup}
             onChange={e => handleShowMultiplePrice(e.target.value)}>
             <Grid
@@ -303,6 +304,7 @@ export default function Variation(props) {
                   className={clsx(classes.textField)}
                   type="text"
                   name="price"
+                  name={`${formId}-price`}
                   inputRef={register({ required: true })}
                   inputProps={{
                     min: "0",
@@ -326,7 +328,7 @@ export default function Variation(props) {
                   label="Mercado Livre"
                   className={clsx(classes.textField)}
                   type="text"
-                  name="priceUniqueMercadoLivre"
+                  name={`${formId}-priceUniqueMercadoLivre`}
                   inputRef={register({ required: true })}
                   inputProps={{
                     min: "0",
@@ -336,7 +338,7 @@ export default function Variation(props) {
                   label="Submarino"
                   className={clsx(classes.textField)}
                   type="text"
-                  name="priceUniqueSubmarino"
+                  name={`${formId}-priceUniqueSubmarino`}
                   inputRef={register({ required: true })}
                   inputProps={{
                     min: "0",
@@ -360,6 +362,12 @@ export default function Variation(props) {
           <DeleteIcon fontSize="small" />
           Remover
         </Button>
+        <input
+          type="hidden"
+          name={`${formId}-id`}
+          value={props.id}
+          ref={register({ required: true })}
+        />
       </Grid>
 
       <Divider className={classes.divider} />

@@ -18,8 +18,7 @@ export default function EANForm() {
       <Typography
         variant="h6"
         gutterBottom
-        style={{ margin: "20px 0", textAlign: "center" }}
-      >
+        style={{ margin: "20px 0", textAlign: "center" }}>
         Cadastrar produto por EAN
       </Typography>
 
@@ -37,9 +36,8 @@ export default function EANForm() {
                 suggestions={[
                   { label: "123" },
                   { label: "990" },
-                  { label: "007" }
-                ]}
-              ></InputAutoSuggest>
+                  { label: "007" },
+                ]} />
             </Grid>
             <Grid item xs={2}>
               <IconButton type="submit" aria-label="search" color="primary">

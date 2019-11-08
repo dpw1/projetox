@@ -46,7 +46,7 @@ export default function FloatingActionButtons() {
         <Variation
           key={e.id}
           id={e.id}
-          formId={i}
+          formId={`id_${i}`}
           handleDelete={handleDelete}
           disabled={i === 0 ? true : false}
         />
