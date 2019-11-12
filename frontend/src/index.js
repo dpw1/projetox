@@ -20,7 +20,7 @@ import { URLS } from "./assets/urls";
 
 const render = (
   <div className="main">
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       {/* <header>
         <Link to="/">First one</Link>
         <Link to="/posts">Dashboard</Link>
@@ -30,7 +30,8 @@ const render = (
         <Route
           exact
           path="/"
-          component={!!getUserData ? Dashboard : LoginPage}
+          // render={() => (!!getUserData ? <Dashboard /> : <LoginPage />)}
+          render={() => <Dashboard />}
         />
         <Route exact path={URLS.dashboard} component={Dashboard} />
         <Route exact path={URLS.login} component={LoginPage} />
