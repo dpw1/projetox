@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/projetox/static/css/main.b100e6da.chunk.css",
+    "main.js": "/projetox/static/js/main.108a5190.chunk.js",
+    "main.js.map": "/projetox/static/js/main.108a5190.chunk.js.map",
+    "runtime-main.js": "/projetox/static/js/runtime-main.910e861f.js",
+    "runtime-main.js.map": "/projetox/static/js/runtime-main.910e861f.js.map",
+    "static/js/2.60901ae9.chunk.js": "/projetox/static/js/2.60901ae9.chunk.js",
+    "static/js/2.60901ae9.chunk.js.map": "/projetox/static/js/2.60901ae9.chunk.js.map",
+    "index.html": "/projetox/index.html",
+    "precache-manifest.6fa8340e7bd7ef4ba2279201301679ae.js": "/projetox/precache-manifest.6fa8340e7bd7ef4ba2279201301679ae.js",
+    "service-worker.js": "/projetox/service-worker.js",
+    "static/css/main.b100e6da.chunk.css.map": "/projetox/static/css/main.b100e6da.chunk.css.map"
+  }
+}
