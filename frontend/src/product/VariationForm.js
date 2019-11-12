@@ -7,7 +7,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import NavigationIcon from "@material-ui/icons/Navigation";
 import Variation from "./Variation";
 import uuid from "uuid";
-import { Button } from "@material-ui/core";
+import { Button, Typography, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
+  },
+  title: {
+    padding: `${theme.spacing(3)}px 0`,
   },
 }));
 
@@ -42,6 +45,15 @@ export default function FloatingActionButtons() {
 
   return (
     <div>
+      <Grid item xs={12}>
+        <Typography
+          variant="h5"
+          gutterBottom
+          align="center"
+          className={classes.title}>
+          Variações do produto
+        </Typography>
+      </Grid>
       {variations.map((e, i) => (
         <Variation
           key={e.id}

@@ -6,6 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import SimpleList from "../components/SimpleList";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
 import { getNodeById } from "../utils/frontend";
 import { useFormContext } from "react-hook-form";
 
@@ -16,6 +17,13 @@ import {
 } from "../assets/dummydata";
 
 const productFloresURL = "https://api.jsonbin.io/b/5dabbb03eb13b2547d2bb9e2";
+
+const useStyles = makeStyles(theme => ({
+  title: {
+    paddingBottom: `${theme.spacing(3)}px`,
+  },
+}));
+
 const gridSize = {
   xs: 12,
   sm: 12,
@@ -23,10 +31,18 @@ const gridSize = {
   lg: 3,
 };
 export default function CategoryForm(props) {
+  const classes = useStyles();
   const [item, setItem] = useState({});
   const [itemChildren, setItemChildren] = useState({});
   const { blockNextStepButton, customProps, customName } = props;
-  const { register, setValue } = useFormContext(); // retrieve all hook methods
+  const {
+    register,
+    setValue,
+    setError,
+    errors,
+    clearError,
+    triggerValidation,
+  } = useFormContext(); // retrieve all hook methods
 
   const getProductCategories = id => {
     if (id === "1") {
@@ -108,15 +124,35 @@ export default function CategoryForm(props) {
       <Grid container spacing={1}>
         <Grid item xs={12} md={12} sm={12}>
           <TextField
-            label="Nome do Produto"
+            label="Nome do Produto *"
             type="text"
             name="productName"
-            inputRef={register({ required: true })}
+            inputRef={register({
+              required: "Por favor digite o nome do produto.",
+            })}
             style={{ width: "100%", marginBottom: 30 }}
+            error={!!errors.productName}
+            helperText={errors.productName && errors.productName.message}
+            onBlur={e => {
+              const value = e.target.value.trim();
+
+              if (value !== "") return clearError("productName");
+
+              setError(
+                "productName",
+                "empty",
+                "Por favor digite o nome do produto.",
+              );
+            }}
           />
+          {/* <p>{errors.productName && errors.productName.message}</p> */}
         </Grid>
       </Grid>
-      <Typography variant="h5" gutterBottom align="center">
+      <Typography
+        variant="h5"
+        gutterBottom
+        align="center"
+        className={classes.title}>
         Aonde aparecerá em nosso site?
       </Typography>
 

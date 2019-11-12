@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,7 +11,6 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
-import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
@@ -64,6 +63,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  title: {
+    padding: `${theme.spacing(3)}px 0`,
+  },
 }));
 
 const steps = ["Categoria", "Dados", "Variações"];
@@ -75,12 +77,16 @@ export default function NewProductPage() {
   const [blockNextStepButton, setBlockNextStepButton] = useState(false);
   const methods = useForm();
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log(formData);
+  // }, [formData]);
 
-  const onSubmit = () => {
-    console.log("submit");
+  // useEffect(() => {
+  //   console.log("errors", methods.errors);
+  // }, [methods.errors]);
+
+  const onSubmit = data => {
+    console.log("submit", processData(data));
   };
 
   const processData = data => {
@@ -109,10 +115,16 @@ export default function NewProductPage() {
      * 1. formulate how json will be;
      * 2. clean up data for the Variations, they should be in specific arrays
      */
+
     setFormData(prevState => {
       return processData({ ...prevState, ...methods.getValues() });
     });
 
+    await methods.triggerValidation();
+    const errors = methods.errors;
+    console.log("errors", errors);
+
+    if (errors.length > 0) return;
     if (activeStep >= 2) return;
     setActiveStep(activeStep + 1);
   };
@@ -137,12 +149,7 @@ export default function NewProductPage() {
           />
         );
       case 1:
-        return (
-          <DataForm
-            customProps={{ required: true }}
-            blockNextStepButton={handleBlockNextStepButton}
-          />
-        );
+        return <DataForm blockNextStepButton={handleBlockNextStepButton} />;
       case 2:
         return <VariationForm />;
       default:
@@ -155,10 +162,14 @@ export default function NewProductPage() {
       <Sidebar />
       <div className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography
+            component="h1"
+            variant="h4"
+            align="center"
+            className={classes.title}>
             Novo Produto
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          {/* <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => {
               return (
                 <Step key={label}>
@@ -166,24 +177,36 @@ export default function NewProductPage() {
                 </Step>
               );
             })}
-          </Stepper>
+          </Stepper> */}
           <React.Fragment>
             <FormContext {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)}>
-                {getStepContent(activeStep)}
+                {/* {getStepContent(activeStep)} */}
+
+                <CategoryForm
+                  customName="category"
+                  customProps={{ required: true }}
+                  blockNextStepButton={handleBlockNextStepButton}
+                />
+                <DataForm
+                  customProps={{ required: true }}
+                  blockNextStepButton={handleBlockNextStepButton}
+                />
+                <VariationForm />
+
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                  {/* {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Voltar
                     </Button>
-                  )}
+                  )} */}
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
-                    disabled={blockNextStepButton}
+                    // disabled={blockNextStepButton}
                     className={classes.button}
-                    type={"button"}>
+                    type={"submit"}>
                     {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
                   </Button>
                 </div>
