@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "241559e2112d8aa5714e25a9023ddadd",
+    "revision": "c08a5218f99daf9a9cc45c3a76aba110",
     "url": "https://dpw1.github.io/projetox/index.html"
   },
   {
-    "revision": "ddf3837c24ca4e16fd27",
+    "revision": "9380176cbebdd3ee6c04",
     "url": "https://dpw1.github.io/projetox/static/css/main.b100e6da.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://dpw1.github.io/projetox/static/js/2.c2dd0815.chunk.js"
   },
   {
-    "revision": "ddf3837c24ca4e16fd27",
-    "url": "https://dpw1.github.io/projetox/static/js/main.f75596fe.chunk.js"
+    "revision": "9380176cbebdd3ee6c04",
+    "url": "https://dpw1.github.io/projetox/static/js/main.ec7ba207.chunk.js"
   },
   {
     "revision": "182ebbf05c49b7d21901",
