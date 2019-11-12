@@ -20,26 +20,25 @@ import { URLS } from "./assets/urls";
 
 const render = (
   <div className="main">
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       {/* <header>
         <Link to="/">First one</Link>
         <Link to="/posts">Dashboard</Link>
       </header> */}
-
       <Switch>
         <Route
           exact
-          path="/"
+          path={URLS.dashboard}
           // render={() => (!!getUserData ? <Dashboard /> : <LoginPage />)}
           render={() => <Dashboard />}
         />
-        <Route exact path={URLS.dashboard} component={Dashboard} />
+        {/* <Route exact path={URLS.dashboard} component={Dashboard} /> */}
         <Route exact path={URLS.login} component={LoginPage} />
         <Route exact path={URLS.signUp} component={SignUpPage} />
         <Route exact path={URLS.newProductEan} component={NewEANPage} />
         <Route exact path={URLS.newProduct} component={NewProductPage} />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   </div>
 );
 
