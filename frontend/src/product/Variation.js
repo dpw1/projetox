@@ -277,7 +277,6 @@ export default function Variation(props) {
             style={{ alignItems: "flex-start" }}
             defaultValue="priceUnique"
             aria-label="price"
-            name="price-radios"
             name={`${formId}-price-radios`}
             className={classes.radioGroup}
             onChange={e => handleShowMultiplePrice(e.target.value)}>
@@ -303,9 +302,8 @@ export default function Variation(props) {
                   label="Preço Único"
                   className={clsx(classes.textField)}
                   type="text"
-                  name="price"
                   name={`${formId}-price`}
-                  inputRef={register({ required: true })}
+                  inputRef={register({ required: false })}
                   inputProps={{
                     min: "0",
                   }}
@@ -329,7 +327,7 @@ export default function Variation(props) {
                   className={clsx(classes.textField)}
                   type="text"
                   name={`${formId}-priceUniqueMercadoLivre`}
-                  inputRef={register({ required: true })}
+                  inputRef={register({ required: false })}
                   inputProps={{
                     min: "0",
                   }}
@@ -339,7 +337,7 @@ export default function Variation(props) {
                   className={clsx(classes.textField)}
                   type="text"
                   name={`${formId}-priceUniqueSubmarino`}
-                  inputRef={register({ required: true })}
+                  inputRef={register({ required: false })}
                   inputProps={{
                     min: "0",
                   }}
