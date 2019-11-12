@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "https://dpw1.github.io/projetox/static/css/main.b100e6da.chunk.css",
-    "main.js": "https://dpw1.github.io/projetox/static/js/main.ce5ef2f0.chunk.js",
-    "main.js.map": "https://dpw1.github.io/projetox/static/js/main.ce5ef2f0.chunk.js.map",
+    "main.js": "https://dpw1.github.io/projetox/static/js/main.f75596fe.chunk.js",
+    "main.js.map": "https://dpw1.github.io/projetox/static/js/main.f75596fe.chunk.js.map",
     "runtime-main.js": "https://dpw1.github.io/projetox/static/js/runtime-main.d908fda8.js",
     "runtime-main.js.map": "https://dpw1.github.io/projetox/static/js/runtime-main.d908fda8.js.map",
-    "static/js/2.60901ae9.chunk.js": "https://dpw1.github.io/projetox/static/js/2.60901ae9.chunk.js",
-    "static/js/2.60901ae9.chunk.js.map": "https://dpw1.github.io/projetox/static/js/2.60901ae9.chunk.js.map",
+    "static/js/2.c2dd0815.chunk.js": "https://dpw1.github.io/projetox/static/js/2.c2dd0815.chunk.js",
+    "static/js/2.c2dd0815.chunk.js.map": "https://dpw1.github.io/projetox/static/js/2.c2dd0815.chunk.js.map",
     "index.html": "https://dpw1.github.io/projetox/index.html",
-    "precache-manifest.afedb55d9d78f7f3573a5af660b366e0.js": "https://dpw1.github.io/projetox/precache-manifest.afedb55d9d78f7f3573a5af660b366e0.js",
+    "precache-manifest.82e3ed18ef9343fe7afc3aa567718008.js": "https://dpw1.github.io/projetox/precache-manifest.82e3ed18ef9343fe7afc3aa567718008.js",
     "service-worker.js": "https://dpw1.github.io/projetox/service-worker.js",
     "static/css/main.b100e6da.chunk.css.map": "https://dpw1.github.io/projetox/static/css/main.b100e6da.chunk.css.map"
   }
