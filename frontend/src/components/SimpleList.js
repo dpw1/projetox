@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import MenuItem from "@material-ui/core/MenuItem";
+import { ListItem } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -14,12 +15,12 @@ const styles = theme => ({
     overflowY: "scroll",
     backgroundColor: theme.palette.background.paper,
     "& .Mui-selected, & .Mui-selected:hover": {
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: theme.palette.primary.main,
     },
     "& .Mui-selected *": {
-      color: theme.palette.background.paper
-    }
-  }
+      color: theme.palette.background.paper,
+    },
+  },
 });
 
 class SimpleList extends React.Component {
@@ -53,29 +54,29 @@ class SimpleList extends React.Component {
 
     const ItemsList = () =>
       items.map((e, i) => (
-        <MenuItem
+        <ListItem
           button
+          role="button"
           onClick={() => this.handleClick(i, e)}
           selected={selected === i}
-          key={e.id}
-        >
+          key={e.id}>
           <ListItemIcon>
             <span>{i + 1}</span>
           </ListItemIcon>
           <ListItemText primary={e.name} />
-        </MenuItem>
+        </ListItem>
       ));
 
     return (
       <div className={`${classes.root} SimpleList`}>
-        <List>{!!items && <ItemsList></ItemsList>}</List>
+        <List>{!!items && <ItemsList />}</List>
       </div>
     );
   }
 }
 
 SimpleList.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SimpleList);

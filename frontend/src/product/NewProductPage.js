@@ -207,7 +207,8 @@ export default function NewProductPage() {
                     // disabled={blockNextStepButton}
                     className={classes.button}
                     type={"submit"}>
-                    {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
+                    {/* {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"} */}
+                    Cadastrar
                   </Button>
                 </div>
               </form>

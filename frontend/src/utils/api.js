@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_USER, token, API_LOGIN } from "./backend";
+import { API_USER, token, API_LOGIN } from "../assets/urls";
 import { setCookie } from "./frontend";
 
 /**
@@ -9,8 +9,8 @@ import { setCookie } from "./frontend";
 export const getUserData = async () => {
   const user = await axios.get(API_USER, {
     headers: {
-      Authorization: `Token ${token}`
-    }
+      Authorization: `Token ${token}`,
+    },
   });
 
   return user ? user : null;

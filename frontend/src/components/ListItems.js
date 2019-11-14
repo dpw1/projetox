@@ -47,16 +47,15 @@ const ListItems = props => {
         <List component="div" disablePadding>
           <ListItem
             button
-            onClick={() => props.history.push(URLS.newProductEan)}
-          >
+            onClick={() => props.history.push(URLS.newProductEan)}>
             <ListItemIcon>
-              <AddIcon></AddIcon>
+              <AddIcon />
             </ListItemIcon>
             <ListItemText primary="Cadastrar" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <ListIcon></ListIcon>
+              <ListIcon />
             </ListItemIcon>
             <ListItemText primary="Meus Produtos" />
           </ListItem>
@@ -79,7 +78,7 @@ const ListItems = props => {
 
       <ListItem button>
         <ListItemIcon>
-          <SettingsIcon></SettingsIcon>
+          <SettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Configurações" />
       </ListItem>
