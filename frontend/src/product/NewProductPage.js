@@ -10,7 +10,6 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
@@ -20,6 +19,7 @@ import DataForm from "./DataForm";
 import Variation from "./Variation";
 import useForm, { FormContext } from "react-hook-form";
 import VariationForm from "./VariationForm";
+import uuid from "uuid";
 
 const useStyles = makeStyles(theme => ({
   appBar: {

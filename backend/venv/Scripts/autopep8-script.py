@@ -1,4 +1,4 @@
-#!"d:\Web Dev\Python\Django\project_x_v2\backend\venv\Scripts\python.exe"
+#!"f:\web dev\python\django\project_x_v2\backend\venv\scripts\python.exe"
 # EASY-INSTALL-ENTRY-SCRIPT: 'autopep8==1.4.4','console_scripts','autopep8'
 __requires__ = 'autopep8==1.4.4'
 import re

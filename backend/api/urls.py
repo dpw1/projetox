@@ -1,7 +1,7 @@
 from django.urls import path, include
 from users.views import UserList
 
-
+# All urls need to have "api/v1" as a prefix.
 urlpatterns = [
     path('users/', UserList.as_view()),
     path('api-auth/', include('rest_framework.urls')),

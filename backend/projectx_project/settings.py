@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local
     'users.apps.UsersConfig',
+    'products.apps.ProductsConfig',
+    'variations.apps.VariationsConfig',
     'api.apps.ApiConfig',
 ]
 
