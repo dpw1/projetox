@@ -5,6 +5,7 @@ import {
   BrowserRouter,
   Route,
   Switch,
+  Redirect,
   Link,
 } from "react-router-dom";
 import "./index.css";
@@ -17,28 +18,23 @@ import NewProductPage from "./product/NewProductPage";
 import * as serviceWorker from "./serviceWorker";
 import { getUserData } from "./utils/api";
 import { URLS } from "./assets/urls";
+import { PrivateRoute } from "./utils/helpers";
 
 const render = (
   <div className="main">
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       {/* <header>
         <Link to="/">First one</Link>
         <Link to="/posts">Dashboard</Link>
       </header> */}
       <Switch>
-        <Route
-          exact
-          path={URLS.dashboard}
-          // render={() => (!!getUserData ? <Dashboard /> : <LoginPage />)}
-          render={() => <Dashboard />}
-        />
-        {/* <Route exact path={URLS.dashboard} component={Dashboard} /> */}
         <Route exact path={URLS.login} render={() => <LoginPage />} />
         <Route exact path={URLS.signUp} render={() => <SignUpPage />} />
-        <Route exact path={URLS.newProductEan} render={() => <NewEANPage />} />
-        <Route exact path={URLS.newProduct} render={() => <NewProductPage />} />
+        <PrivateRoute exact path={URLS.dashboard} component={Dashboard} />
+        <PrivateRoute exact path={URLS.newProductEan} component={NewEANPage} />
+        <PrivateRoute exact path={URLS.newProduct} component={NewProductPage} />
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   </div>
 );
 

@@ -1,3 +1,7 @@
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
+import { token, URLS } from "../assets/urls";
+
 export function setCookie(name, value, days) {
   var expires = "";
   if (days) {
@@ -42,3 +46,21 @@ export function getNodeById(id, node) {
   }
   return runner(null, node);
 }
+
+export const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      token ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: URLS.login,
+            state: { from: props.location },
+          }}
+        />
+      )
+    }
+  />
+);

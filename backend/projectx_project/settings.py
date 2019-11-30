@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
+CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -149,9 +150,11 @@ ACCOUNT_ADAPTER = 'users.adapter.CustomAccountAdapter'
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
+    'https://localhost:3000',
+    'http://127.0.0.1:8000',
 )
 
-# Rest Frameworl
+# Rest Framework
 # #########
 
 REST_FRAMEWORK = {

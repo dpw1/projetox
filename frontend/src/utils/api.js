@@ -1,6 +1,6 @@
 import axios from "axios";
-import { API_USER, token, API_LOGIN } from "../assets/urls";
-import { setCookie } from "./frontend";
+import { token, API_USER, API_LOGOUT, API_LOGIN } from "../assets/urls";
+import { setCookie, eraseCookie } from "./helpers";
 
 /**
  * GET: Get user data if user is logged in.
@@ -13,7 +13,7 @@ export const getUserData = async () => {
     },
   });
 
-  return user ? user : null;
+  return user ? user : false;
 };
 
 /**
@@ -25,7 +25,24 @@ export const login = async data => {
     .then(res => {
       const token = res.data;
       setCookie("token", JSON.stringify(token));
-      console.log(res);
+      window.location.reload();
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.data); // => the response payload
+      }
+    });
+};
+
+/**
+ * POST: Logout request to API.
+ */
+export const logout = async () => {
+  axios
+    .post(API_LOGOUT)
+    .then(res => {
+      eraseCookie("token");
+      window.location.reload();
     })
     .catch(error => {
       if (error.response) {

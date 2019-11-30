@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import {
   AppBar,
@@ -14,6 +14,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import ListItems from "./ListItems";
+import { withRouter } from "react-router";
+
+import { URLS } from "../assets/urls";
+import { logout, getUserData } from "../utils/api";
 
 const drawerWidth = 240;
 
@@ -102,14 +106,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Sidebar(props) {
+function Sidebar(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = React.useState({});
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await getUserData();
+      setUser(data);
+    })();
+  }, []); //
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    await props.history.push(URLS.login);
   };
 
   return (
@@ -137,7 +155,18 @@ export default function Sidebar(props) {
             className={classes.title}>
             Surprise
           </Typography>
-          <Button color="inherit">Logout</Button>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+            align="right">
+            {user.username}
+          </Typography>
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -160,3 +189,5 @@ export default function Sidebar(props) {
     </div>
   );
 }
+
+export default withRouter(Sidebar);

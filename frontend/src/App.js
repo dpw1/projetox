@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import useForm from "react-hook-form";
 import axios from "axios";
-import { setCookie, getCookie, eraseCookie } from "./utils/frontend";
+import { setCookie, getCookie, eraseCookie } from "./utils/helpers";
+import {
+  API_USER,
+  API_LOGOUT,
+  API_LOGIN,
+  API_POSTS,
+  token,
+} from "./assets/urls";
 import "./App.css";
-
-const API = "http://127.0.0.1:8000/api/v1";
-const API_LOGIN = `${API}/rest-auth/login/`;
-const API_LOGOUT = `${API}/rest-auth/logout/`;
-const API_POSTS = `${API}/posts/`;
-const API_USER = `${API}/rest-auth/user/`;
-const token = getCookie("token")
-  ? Object.values(JSON.parse(getCookie("token")))[0]
-  : null;
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -23,8 +21,8 @@ function App() {
       axios
         .get(API_USER, {
           headers: {
-            Authorization: `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         })
         .then(function({ data: user }) {
           console.log(user);
@@ -40,8 +38,8 @@ function App() {
       axios
         .get(API_POSTS, {
           headers: {
-            Authorization: `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         })
         .then(function(response) {
           console.log(response);
@@ -77,8 +75,8 @@ function App() {
     axios
       .post(API_LOGOUT, {
         headers: {
-          Authorization: `Token ${token}`
-        }
+          Authorization: `Token ${token}`,
+        },
       })
       .then(res => {
         console.log(res);
@@ -94,14 +92,14 @@ function App() {
   const onSubmitPost = data => {
     const post = {
       author: user.pk,
-      ...data
+      ...data,
     };
     console.log(post);
     axios
       .post(API_POSTS, post, {
         headers: {
-          Authorization: `Token ${token}`
-        }
+          Authorization: `Token ${token}`,
+        },
       })
       .then(res => {
         console.log(res);

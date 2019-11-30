@@ -6,6 +6,7 @@ from products.models import Product
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
+    quantity = models.IntegerField()
     price = models.IntegerField()
     price_mercado_livre = models.IntegerField()
     price_submarino = models.IntegerField()

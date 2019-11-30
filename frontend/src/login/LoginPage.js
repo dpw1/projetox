@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,21 +15,23 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useForm from "react-hook-form";
 import { isEmail } from "validator";
+import { withRouter } from "react-router";
 
 import Copyright from "../components/Copyright";
-import { login } from "../utils/api";
+import { login, getUserData } from "../utils/api";
+import { token } from "../assets/urls";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
-    }
+      backgroundColor: theme.palette.common.white,
+    },
   },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   buttonProgress: {
     position: "absolute",
@@ -37,35 +39,58 @@ const useStyles = makeStyles(theme => ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     animation: "unset",
-    marginTop: 2
+    marginTop: 2,
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   buttonWrapper: {
-    position: "relative"
-  }
+    position: "relative",
+  },
 }));
 
-export default function LoginPage() {
+function LoginPage(props) {
   const classes = useStyles();
   const { register, handleSubmit, errors, setError, clearError } = useForm(); // initialise the hook
   const [loading, setLoading] = useState(false);
 
+  const isUserLoggedIn = async () => {
+    if (!token) return false;
+
+    let res;
+
+    try {
+      res = await getUserData();
+    } catch (e) {
+      res = false;
+    }
+
+    console.log("res", res);
+
+    return res;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const isLoggedIn = await isUserLoggedIn();
+
+      setTimeout(() => isLoggedIn && props.history.push("/"), 100);
+    })();
+  }, []); // eslint-disable-line
+
   const onSubmitLogin = async data => {
     setLoading(true);
-    console.log(loading);
-    const result = await login(data);
-    await setLoading(false);
+    await login(data);
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -86,6 +111,7 @@ export default function LoginPage() {
             label="E-mail"
             name="email"
             autoComplete="email"
+            defaultValue="admin@admin.com"
             inputRef={register({ required: true })}
             onBlur={e => {
               const value = e.target.value;
@@ -94,7 +120,7 @@ export default function LoginPage() {
                 return setError(
                   "email",
                   "invalidEmail",
-                  "Por favor use um e-mail válido."
+                  "Por favor use um e-mail válido.",
                 );
               }
 
@@ -111,6 +137,7 @@ export default function LoginPage() {
             label="Password"
             type="password"
             id="password"
+            defaultValue="admin"
             inputRef={register({ required: true })}
             autoComplete="current-password"
           />
@@ -126,9 +153,8 @@ export default function LoginPage() {
               variant="contained"
               color="primary"
               disabled={loading}
-              className={classes.submit}
-            >
-              Efectue o seu login
+              className={classes.submit}>
+              {loading ? "Verificando Login..." : "Entrar"}
             </Button>
             {loading && (
               <CircularProgress size={24} className={classes.buttonProgress} />
@@ -136,12 +162,12 @@ export default function LoginPage() {
           </div>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link disabled={true} href="#" variant="body2">
                 Recuperar password
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link disabled={true} href="#" variant="body2">
                 {"Criar uma conta"}
               </Link>
             </Grid>
@@ -154,3 +180,5 @@ export default function LoginPage() {
     </Container>
   );
 }
+
+export default withRouter(LoginPage);

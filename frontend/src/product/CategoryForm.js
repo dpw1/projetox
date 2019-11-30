@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SimpleList from "../components/SimpleList";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-import { getNodeById } from "../utils/frontend";
+import { getNodeById } from "../utils/helpers";
 import { useFormContext } from "react-hook-form";
 
 import {

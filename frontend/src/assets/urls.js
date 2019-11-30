@@ -1,4 +1,4 @@
-import { getCookie } from "../utils/frontend";
+import { getCookie } from "../utils/helpers";
 
 export const URLS = {
   dashboard: "/",
