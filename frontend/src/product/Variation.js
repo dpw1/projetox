@@ -194,7 +194,7 @@ export default function Variation(props) {
             label="Nome do Produto *"
             className={clsx(classes.textField)}
             type="text"
-            name={`${formId}-productName`}
+            name={`${formId}-name`}
             inputRef={register({ required: true })}
           />
         </Grid>

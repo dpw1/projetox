@@ -26,5 +26,5 @@ class CustomRegisterSerializer(RegisterSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'city', 'postal_code', 'nif',
+        fields = ('id', 'email', 'username', 'city', 'postal_code', 'nif',
                   'iban', 'birth_date', 'update_date', 'picture', 'phone_number',)
