@@ -15,6 +15,7 @@ class VariationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Variation
         fields = ('product',
+                  'id',
                   'variation_id',
                   'ean',
                   'sku',

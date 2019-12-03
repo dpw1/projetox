@@ -1,9 +1,9 @@
 from django.urls import include, path
 from django.conf.urls import url
+from rest_framework.routers import SimpleRouter
 
 from . import views
 
-urlpatterns = [
-    path(
-        'create/', views.VariationCreate.as_view({'get': 'list', 'post': 'create'})),
-]
+router = SimpleRouter()
+router.register('', views.VariationViewSet, base_name='variations')
+urlpatterns = router.urls
