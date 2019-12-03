@@ -1,9 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 from rest_framework import status, viewsets
+from rest_framework import filters
 
 from django.shortcuts import render
 
@@ -16,3 +14,5 @@ class VariationViewSet(CreateListModelMixin, viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = Variation.objects.all()
     serializer_class = VariationSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['ean']

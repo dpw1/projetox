@@ -8,6 +8,9 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 
 class VariationSerializer(serializers.ModelSerializer):
+
+    product_name = serializers.CharField(source='product.name')
+
     def __init__(self, *args, **kwargs):
         many = kwargs.pop('many', True)
         super(VariationSerializer, self).__init__(many=many, *args, **kwargs)
@@ -15,6 +18,7 @@ class VariationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Variation
         fields = ('product',
+                  'product_name',
                   'id',
                   'variation_id',
                   'ean',
