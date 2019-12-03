@@ -11,8 +11,6 @@ from .models import Variation
 from .serializers import VariationSerializer
 from .mixins import CreateListModelMixin
 
-# Create your views here.
-
 
 class VariationViewSet(CreateListModelMixin, viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
