@@ -1,5 +1,11 @@
 import axios from "axios";
-import { token, API_USER, API_LOGOUT, API_LOGIN } from "../assets/urls";
+import {
+  token,
+  API_USER,
+  API_LOGOUT,
+  API_LOGIN,
+  API_VARIATIONS,
+} from "../assets/urls";
 import { setCookie, eraseCookie } from "./helpers";
 
 /**
@@ -49,4 +55,26 @@ export const logout = async () => {
         console.log(error.response.data); // => the response payload
       }
     });
+};
+
+/**
+ * POST: Search a variation.
+ * The fields to search for are set on the backend.
+ */
+
+export const searchVariation = async (value = "") => {
+  if (value === "") return;
+
+  const url = `${API_VARIATIONS}?search=${value}`;
+
+  try {
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return data;
+  } catch (err) {
+    return err;
+  }
 };

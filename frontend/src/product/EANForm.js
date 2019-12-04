@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -7,12 +7,30 @@ import SearchIcon from "@material-ui/icons/Search";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAutoSuggest from "../components/InputAutoSuggest";
 import useForm, { FormContext, useFormContext } from "react-hook-form";
+import { searchVariation } from "../utils/api";
 import Checkbox from "@material-ui/core/Checkbox";
 import { strings } from "../assets/strings";
 
 export default function EANForm() {
   const methods = useForm();
+  const [suggestions, setSuggestions] = React.useState([]);
   const onSubmit = data => console.log(data);
+
+  const handleOnChange = async e => {
+    const variations = await searchVariation(e);
+    console.log(variations);
+    return variations;
+    // setSuggestions(res.data);
+  };
+
+  const handleSuggestions = () => {
+    return [];
+  };
+
+  // useEffect(() => {
+  //   console.log(suggestions);
+  // }, [suggestions]);
+
   return (
     <React.Fragment>
       <Typography
@@ -32,12 +50,9 @@ export default function EANForm() {
                 customName="EAN"
                 customProps={{ required: true }}
                 placeholder="Digite o EAN do seu produto"
-                customOnChange={e => console.log(e.target.value)}
-                suggestions={[
-                  { label: "123" },
-                  { label: "990" },
-                  { label: "007" },
-                ]} />
+                customOnChange={handleOnChange}
+                suggestions={suggestions}
+              />
             </Grid>
             <Grid item xs={2}>
               <IconButton type="submit" aria-label="search" color="primary">
