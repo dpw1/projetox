@@ -63,7 +63,7 @@ export const logout = async () => {
  */
 
 export const searchVariation = async (value = "") => {
-  if (value === "") return;
+  if (value === "") return [];
 
   const url = `${API_VARIATIONS}?search=${value}`;
 

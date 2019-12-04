@@ -11,8 +11,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import useForm, { FormContext, useFormContext } from "react-hook-form";
 
 function renderSuggestion(suggestion, { query, isHighlighted }) {
-  const matches = match(suggestion.label, query);
-  const parts = parse(suggestion.label, matches);
+  const text = `${suggestion.label} (${suggestion.ean})`;
+  const matches = match(text, query);
+  const parts = parse(text, matches);
 
   return (
     <MenuItem selected={isHighlighted} component="div">
@@ -36,10 +37,9 @@ function getSuggestions(value, suggestions) {
 
   return inputLength === 0
     ? []
-    : suggestions.filter(suggestion => {
+    : suggestions.filter(({ label }) => {
         const keep =
-          count < 5 &&
-          suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+          count < 5 && label.slice(0, inputLength).toLowerCase() === inputValue;
 
         if (keep) {
           count += 1;
@@ -50,7 +50,7 @@ function getSuggestions(value, suggestions) {
 }
 
 function getSuggestionValue(suggestion) {
-  return suggestion.label;
+  return suggestion.ean;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -119,8 +119,10 @@ export default function InputAutoSuggest(props) {
     setValue(customName, val);
   });
 
+  /**
+   * TODO: show suggestions of searched EANS
+   */
   const handleSuggestionsFetchRequested = ({ value }) => {
-    console.log("recalculate");
     setSuggestions(getSuggestions(value, suggestions));
     // setSuggestions(suggestions);
   };
@@ -141,12 +143,10 @@ export default function InputAutoSuggest(props) {
 
   useEffect(() => {
     setSuggestions(suggestions);
-    console.log("init");
   }, []); // eslint-disable-line
 
   const autosuggestProps = {
     renderInputComponent,
-    suggestions: stateSuggestions,
     onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
     onSuggestionsClearRequested: handleSuggestionsClearRequested,
     getSuggestionValue,
@@ -165,11 +165,12 @@ export default function InputAutoSuggest(props) {
           value: state.single,
           onChange: handleChange("single"),
         }}
+        suggestions={suggestions}
         theme={{
           container: classes.container,
           suggestionsContainerOpen: classes.suggestionsContainerOpen,
           suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion,
+          // suggestion: classes.suggestion,
         }}
         renderSuggestionsContainer={options => (
           <Paper {...options.containerProps} square>

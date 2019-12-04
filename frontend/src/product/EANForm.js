@@ -18,18 +18,17 @@ export default function EANForm() {
 
   const handleOnChange = async e => {
     const variations = await searchVariation(e);
-    console.log(variations);
-    return variations;
-    // setSuggestions(res.data);
-  };
+    let cleanedVariations = variations.map(({ product_name, ean }) => {
+      return {
+        label: product_name,
+        ean,
+      };
+    });
 
-  const handleSuggestions = () => {
-    return [];
-  };
+    setSuggestions(cleanedVariations);
 
-  // useEffect(() => {
-  //   console.log(suggestions);
-  // }, [suggestions]);
+    console.log(cleanedVariations);
+  };
 
   return (
     <React.Fragment>
