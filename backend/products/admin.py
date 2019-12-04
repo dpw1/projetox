@@ -11,7 +11,7 @@ class VariationInline(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'id',)
     inlines = [
         VariationInline,
     ]

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'variations.apps.VariationsConfig',
+    'userproducts.apps.UserProductsConfig',
     'api.apps.ApiConfig',
 ]
 
