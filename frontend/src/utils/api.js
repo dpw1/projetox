@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import {
   token,
@@ -43,7 +44,7 @@ export const login = async data => {
 /**
  * POST: Logout request to API.
  */
-export const logout = async () => {
+export const logout = async props => {
   axios
     .post(API_LOGOUT)
     .then(res => {

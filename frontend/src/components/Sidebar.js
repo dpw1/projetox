@@ -17,7 +17,7 @@ import ListItems from "./ListItems";
 import { withRouter } from "react-router";
 
 import { URLS } from "../assets/urls";
-import { logout, getUserData } from "../utils/api";
+import { getUserData, logout } from "../utils/api";
 
 const drawerWidth = 240;
 
@@ -127,7 +127,6 @@ function Sidebar(props) {
 
   const handleLogout = async () => {
     await logout();
-    window.location.reload();
   };
 
   return (
