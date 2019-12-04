@@ -19,6 +19,7 @@ import * as serviceWorker from "./serviceWorker";
 import { getUserData } from "./utils/api";
 import { URLS } from "./assets/urls";
 import { PrivateRoute } from "./utils/helpers";
+import { token } from "./assets/urls";
 
 const render = (
   <div className="main">
@@ -28,7 +29,13 @@ const render = (
         <Link to="/posts">Dashboard</Link>
       </header> */}
       <Switch>
-        <Route exact path={URLS.login} render={() => <LoginPage />} />
+        <Route
+          exact
+          path={URLS.login}
+          render={() =>
+            token ? <Redirect to={URLS.dashboard} /> : <LoginPage />
+          }
+        />
         <Route exact path={URLS.signUp} render={() => <SignUpPage />} />
         <PrivateRoute exact path={URLS.dashboard} component={Dashboard} />
         <PrivateRoute exact path={URLS.newProductEan} component={NewEANPage} />

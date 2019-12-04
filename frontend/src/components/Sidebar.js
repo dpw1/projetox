@@ -127,7 +127,7 @@ function Sidebar(props) {
 
   const handleLogout = async () => {
     await logout();
-    await props.history.push(URLS.login);
+    window.location.reload();
   };
 
   return (

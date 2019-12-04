@@ -3,4 +3,11 @@ from .models import Variation
 # Register your models here.
 
 
-admin.site.register(Variation)
+class VariationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'get_product_name', 'ean',)
+
+    def get_product_name(self, obj):
+        return obj.product.name
+
+
+admin.site.register(Variation, VariationAdmin)
