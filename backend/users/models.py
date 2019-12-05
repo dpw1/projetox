@@ -14,3 +14,6 @@ class CustomUser(AbstractUser):
     update_date = models.DateField(auto_now=True)
     picture = models.ImageField('images/', blank=True, null=True)
     phone_number = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.username

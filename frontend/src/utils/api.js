@@ -59,8 +59,9 @@ export const logout = async props => {
 };
 
 /**
- * POST: Search a variation.
+ * POST: Search for a variation.
  * The fields to search for are set on the backend.
+ * Currently (December 2019) it's possible to search only for EAN codes.
  */
 
 export const searchVariation = async (value = "") => {
@@ -76,6 +77,7 @@ export const searchVariation = async (value = "") => {
     });
     return data;
   } catch (err) {
-    return err;
+    console.log(err);
+    return [];
   }
 };

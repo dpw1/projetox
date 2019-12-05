@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
     'corsheaders',
+    'import_export',
     # Local
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',

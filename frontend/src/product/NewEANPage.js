@@ -20,22 +20,22 @@ import EANForm from "./EANForm";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    position: "relative"
+    position: "relative",
   },
   main: {
     display: "flex",
-    height: "100vh"
+    height: "100vh",
   },
   layout: {
-    width: "auto",
+    maxWidth: 600,
+    width: "100%",
     marginTop: "10vh",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
       marginLeft: "auto",
-      marginRight: "auto"
-    }
+      marginRight: "auto",
+    },
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -44,20 +44,20 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
-      padding: theme.spacing(3)
-    }
+      padding: theme.spacing(3),
+    },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5)
+    padding: theme.spacing(3, 0, 5),
   },
   buttons: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   button: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1)
-  }
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 const NewEANPage = props => {
@@ -65,14 +65,14 @@ const NewEANPage = props => {
 
   return (
     <main className={classes.main}>
-      <Sidebar></Sidebar>
+      <Sidebar />
       <div className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             EAN
           </Typography>
           <React.Fragment>
-            <EANForm></EANForm>
+            <EANForm />
             <Link
               href="#"
               onClick={e => {
@@ -82,9 +82,8 @@ const NewEANPage = props => {
               style={{
                 margin: "0 auto",
                 display: "table",
-                textAlign: "center"
-              }}
-            >
+                textAlign: "center",
+              }}>
               Não encontrei, quero cadastrar um novo produto
             </Link>
           </React.Fragment>
