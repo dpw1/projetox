@@ -16,8 +16,6 @@ import {
   productCategoriesGiftCards,
 } from "../assets/dummydata";
 
-const productFloresURL = "https://api.jsonbin.io/b/5dabbb03eb13b2547d2bb9e2";
-
 const useStyles = makeStyles(theme => ({
   title: {
     paddingBottom: `${theme.spacing(3)}px`,
@@ -110,6 +108,10 @@ export default function CategoryForm(props) {
 
     populateListsWithChildren();
     blockNextStepButton(currentTableUserIsOn(item.id) !== 3);
+
+    if (currentTableUserIsOn(item.id) !== 3) {
+      setError("category", "required", "Por favor escolha uma categoria.");
+    }
   }, [item]); // eslint-disable-line
 
   return (
@@ -132,7 +134,13 @@ export default function CategoryForm(props) {
             })}
             style={{ width: "100%", marginBottom: 30 }}
             error={!!errors.productName}
-            helperText={errors.productName && errors.productName.message}
+            helperText={
+              errors.productName
+                ? errors.productName.message
+                : `Máx. 200 caracteres. Dica de titulo otimizado para buscadores:
+            produto + marca + modelo + referência do fornecedor + característica
+            + cor.`
+            }
             onBlur={e => {
               const value = e.target.value.trim();
 
@@ -153,7 +161,7 @@ export default function CategoryForm(props) {
         gutterBottom
         align="center"
         className={classes.title}>
-        Aonde aparecerá em nosso site?
+        Aonde aparecerá em nosso site? *
       </Typography>
 
       <Grid container spacing={1}>
@@ -163,18 +171,21 @@ export default function CategoryForm(props) {
             updateCurrentItem={updateCurrentItem}
           />
         </Grid>
+        {/* Column 2 */}
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.first ? itemChildren.first : null}
             updateCurrentItem={updateCurrentItem}
           />
         </Grid>
+        {/* Column 3 */}
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.second ? itemChildren.second : null}
             updateCurrentItem={updateCurrentItem}
           />
         </Grid>
+        {/* Column 4 */}
         <Grid item {...gridSize}>
           <SimpleList
             items={itemChildren.third ? itemChildren.third : null}
@@ -182,6 +193,7 @@ export default function CategoryForm(props) {
           />
         </Grid>
       </Grid>
+      {/* {errors.username && errors.username.message} */}
     </React.Fragment>
   );
 }

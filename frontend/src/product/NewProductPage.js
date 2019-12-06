@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,7 +9,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Review from "./Review";
 import Sidebar from "../components/Sidebar";
@@ -19,6 +19,7 @@ import DataForm from "./DataForm";
 import Variation from "./Variation";
 import useForm, { FormContext } from "react-hook-form";
 import VariationForm from "./VariationForm";
+import { URLS } from "../assets/urls";
 import uuid from "uuid";
 
 const useStyles = makeStyles(theme => ({
@@ -57,11 +58,15 @@ const useStyles = makeStyles(theme => ({
   },
   buttons: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
+    "&:nth-child(1)": {
+      marginLeft: 0,
+      paddingLeft: 0,
+    },
   },
   title: {
     padding: `${theme.spacing(3)}px 0`,
@@ -86,7 +91,8 @@ export default function NewProductPage() {
   // }, [methods.errors]);
 
   const onSubmit = data => {
-    console.log("submit", processData(data));
+    const processedData = processData(data);
+    console.log("submit", processedData);
   };
 
   const processData = data => {
@@ -130,7 +136,7 @@ export default function NewProductPage() {
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+    // setActiveStep(activeStep - 1);
   };
 
   const handleBlockNextStepButton = value => {
@@ -201,10 +207,16 @@ export default function NewProductPage() {
                     </Button>
                   )} */}
                   <Button
+                    component={Link}
+                    to={URLS.dashboard}
+                    color="primary"
+                    className={classes.button}>
+                    Voltar sem cadastrar
+                  </Button>
+                  <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
-                    // disabled={blockNextStepButton}
+                    disabled={blockNextStepButton}
                     className={classes.button}
                     type={"submit"}>
                     {/* {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"} */}
