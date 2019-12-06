@@ -20,6 +20,7 @@ import Variation from "./Variation";
 import useForm, { FormContext } from "react-hook-form";
 import VariationForm from "./VariationForm";
 import { URLS } from "../assets/urls";
+import { renameProperty } from "../utils/helpers";
 import uuid from "uuid";
 
 const useStyles = makeStyles(theme => ({
@@ -91,7 +92,8 @@ export default function NewProductPage() {
   // }, [methods.errors]);
 
   const onSubmit = data => {
-    const processedData = processData(data);
+    let processedData = processData(data);
+    renameProperty(processedData, "productName", "name");
     console.log("submit", processedData);
   };
 

@@ -9,17 +9,28 @@ import {
 } from "../assets/urls";
 import { setCookie, eraseCookie } from "./helpers";
 
+const LOCALSTORAGE_USER = "userdata";
+
 /**
  * GET: Get user data if user is logged in.
  * In case user is logged out, simply returns null.
  */
 export const getUserData = async () => {
-  const user = await axios.get(API_USER, {
+  let user = localStorage.getItem(LOCALSTORAGE_USER);
+
+  if (user && token) {
+    return JSON.parse(user);
+  }
+
+  user = await axios.get(API_USER, {
     headers: {
       Authorization: `Token ${token}`,
     },
   });
 
+  user && localStorage.setItem(LOCALSTORAGE_USER, JSON.stringify(user));
+
+  console.log(user);
   return user ? user : false;
 };
 
@@ -45,17 +56,34 @@ export const login = async data => {
  * POST: Logout request to API.
  */
 export const logout = async props => {
-  axios
-    .post(API_LOGOUT)
-    .then(res => {
-      eraseCookie("token");
-      window.location.reload();
-    })
-    .catch(error => {
-      if (error.response) {
-        console.log(error.response.data); // => the response payload
-      }
+  try {
+    await axios.post(API_LOGOUT, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
     });
+    eraseCookie("token");
+    localStorage.removeItem(LOCALSTORAGE_USER);
+    window.location.reload();
+  } catch (err) {
+    console.log(err);
+  }
+
+  // await axios
+  // .post(API_LOGOUT, {
+  //   headers: {
+  //     Authorization: `Token ${token}`,
+  //   },
+  // })
+  // .then(res => {
+  //   eraseCookie("token");
+  //   window.location.reload();
+  // })
+  // .catch(error => {
+  //   if (error.response) {
+  //     console.log(error.response.data); // => the response payload
+  //   }
+  // });
 };
 
 /**

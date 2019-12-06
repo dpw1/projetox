@@ -24,7 +24,7 @@ export function getCookie(name) {
 }
 
 export function eraseCookie(name) {
-  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  document.cookie = name + "=; Max-Age=-99999999;";
 }
 
 /**
@@ -47,6 +47,10 @@ export function getNodeById(id, node) {
   return runner(null, node);
 }
 
+/**
+ *
+ * Private Route for pages that need Login.
+ */
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -64,3 +68,20 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
+/**
+ * Renames a given property
+ */
+
+export function renameProperty(obj, oldName, newName) {
+  // Do nothing if the names are the same
+  if (oldName === newName) {
+    return obj;
+  }
+  // Check for the old property name to avoid a ReferenceError in strict mode.
+  if (obj.hasOwnProperty(oldName)) {
+    obj[newName] = obj[oldName];
+    delete obj[oldName];
+  }
+  return obj;
+}
