@@ -8,7 +8,9 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 
 class VariationSerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(source='product.name')
+
+    def validate_product_id(self, data):
+        print(data)
 
     def validate(self, data):
         """
@@ -25,17 +27,12 @@ class VariationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Variation
-        fields = ('product',
-                  'product_name',
+        fields = ('product_id',
                   'id',
                   'variation_id',
                   'ean',
                   'sku',
                   'name',
-                  'quantity',
-                  'price',
-                  'price_mercado_livre',
-                  'price_submarino',
                   'description',
                   'picture_1',
                   'update_date',

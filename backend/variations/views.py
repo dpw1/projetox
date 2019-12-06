@@ -15,7 +15,6 @@ from .mixins import CreateListModelMixin
 
 class VariationViewSet(CreateListModelMixin, viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
-    authentication_classes = (TokenAuthentication,)
     queryset = Variation.objects.all()
     serializer_class = VariationSerializer
     filter_backends = [filters.SearchFilter]

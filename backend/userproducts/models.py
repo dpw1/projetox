@@ -15,3 +15,6 @@ class UserProduct(models.Model):
     update_date = models.DateField(auto_now=True)
     creation_date = models.DateField(auto_now_add=True)
     available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "%s (%s)" % (self.user, self.product)
