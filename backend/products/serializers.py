@@ -8,7 +8,7 @@ from variations.serializers import VariationSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     variation_set = VariationSerializer(
-        many=True, read_only=True)
+        many=True, read_only=False)
 
     class Meta:
         model = Product
