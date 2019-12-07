@@ -134,10 +134,11 @@ export default function CategoryForm(props) {
             })}
             style={{ width: "100%", marginBottom: 30 }}
             error={!!errors.productName}
+            inputProps={{ maxLength: 200 }}
             helperText={
               errors.productName
                 ? errors.productName.message
-                : `Máx. 200 caracteres. Dica de titulo otimizado para buscadores:
+                : `Máximo de 200 caracteres. Dica de titulo otimizado para buscadores:
             produto + marca + modelo + referência do fornecedor + característica
             + cor.`
             }

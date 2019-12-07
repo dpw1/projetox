@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -22,6 +22,7 @@ import VariationForm from "./VariationForm";
 import { URLS } from "../assets/urls";
 import { renameProperty } from "../utils/helpers";
 import uuid from "uuid";
+import { getUserData, createProduct } from "../utils/api";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -83,32 +84,80 @@ export default function NewProductPage() {
   const [blockNextStepButton, setBlockNextStepButton] = useState(false);
   const methods = useForm();
 
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
+  // testing POST product
+  useEffect(() => {
+    (async () => {
+      const test = {
+        category: "1_1_1_1",
+        created_by: 1,
+        height: "0.00",
+        name: "Postando do react",
+        description: "Videogame",
+
+        width: "0.00",
+        weight: "0.00",
+        length: "0.00",
+        variations: [
+          {
+            ean: "091",
+            sku: "0941",
+            name: "Blue",
+            picture: null,
+          },
+        ],
+      };
+      const res = await createProduct(test);
+      console.log("newproductpage", res);
+    })();
+  }, []);
 
   // useEffect(() => {
   //   console.log("errors", methods.errors);
   // }, [methods.errors]);
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
+    const { data: user } = await getUserData();
     let processedData = processData(data);
-    renameProperty(processedData, "productName", "name");
+
+    const cleanData = (() => {
+      renameProperty(processedData, "productName", "name");
+
+      // Custmomizable for testing purposes
+      processedData.created_by = user.pk;
+      processedData.category = "1_1_1_1";
+      processedData.description = "12312123";
+      processedData.variations.map(e => {
+        e.picture = null;
+        delete e.price;
+        delete e.price_submarino;
+        delete e.price_mercado_livre;
+        delete e.quantity;
+      });
+    })();
+
     console.log("submit", processedData);
+
+    /** Cadastrar primeiro /Product e depois /userProducts */
+
+    // Cadastrar Product
+    const productCreation = (async () => {
+      const res = await createProduct(processedData);
+      console.log(res);
+    })();
   };
 
   const processData = data => {
-    const processedData = { variants: [] };
+    const processedData = { variations: [] };
 
     for (const key in data) {
       if (key.includes("id_")) {
         const [_, index, subkey] = key.match(/^id_(\d+)-(\w+)$/);
 
-        if (!processedData.variants[index]) {
-          processedData.variants[index] = {};
+        if (!processedData.variations[index]) {
+          processedData.variations[index] = {};
         }
 
-        processedData.variants[index][subkey] = data[key];
+        processedData.variations[index][subkey] = data[key];
       } else {
         processedData[key] = data[key];
       }
@@ -218,7 +267,7 @@ export default function NewProductPage() {
                   <Button
                     variant="contained"
                     color="primary"
-                    disabled={blockNextStepButton}
+                    // disabled={blockNextStepButton}
                     className={classes.button}
                     type={"submit"}>
                     {/* {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"} */}

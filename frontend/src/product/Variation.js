@@ -187,6 +187,7 @@ export default function Variation(props) {
             type="text"
             name={`${formId}-sku`}
             inputRef={register({ required: true })}
+            defaultValue="1"
           />
         </Grid>
         <Grid item md={6} sm={6} xs={12} className={classes.grid}>
@@ -196,6 +197,7 @@ export default function Variation(props) {
             type="text"
             name={`${formId}-name`}
             inputRef={register({ required: true })}
+            defaultValue="1"
           />
         </Grid>
         <Grid item md={3} sm={3} xs={12} className={classes.grid}>
@@ -205,6 +207,7 @@ export default function Variation(props) {
             type="text"
             name={`${formId}-ean`}
             inputRef={register({ required: false })}
+            defaultValue="1"
           />
         </Grid>
       </Grid>
@@ -217,9 +220,10 @@ export default function Variation(props) {
           <Grid item className={classes.iconInput}>
             <TextField
               id="input-with-icon-grid"
-              name={`${formId}-picture1`}
+              name={`${formId}-picture`}
               label="Foto 1 *"
               inputRef={register({ required: true })}
+              defaultValue="1"
             />
           </Grid>
         </Grid>
@@ -240,7 +244,7 @@ export default function Variation(props) {
                   id="input-with-icon-grid"
                   name={`${formId}-picture${id}`}
                   label={`Foto ${id}`}
-                  inputRef={register({ required: false })}
+                  // inputRef={register({ required: false })}
                 />
               </Grid>
             </Grid>
@@ -326,7 +330,7 @@ export default function Variation(props) {
                   label="Mercado Livre"
                   className={clsx(classes.textField)}
                   type="text"
-                  name={`${formId}-priceUniqueMercadoLivre`}
+                  name={`${formId}-price_mercado_livre`}
                   inputRef={register({ required: false })}
                   inputProps={{
                     min: "0",
@@ -336,7 +340,7 @@ export default function Variation(props) {
                   label="Submarino"
                   className={clsx(classes.textField)}
                   type="text"
-                  name={`${formId}-priceUniqueSubmarino`}
+                  name={`${formId}-price_submarino`}
                   inputRef={register({ required: false })}
                   inputProps={{
                     min: "0",
@@ -360,12 +364,12 @@ export default function Variation(props) {
           <DeleteIcon fontSize="small" />
           Remover
         </Button>
-        <input
+        {/* <input
           type="hidden"
           name={`${formId}-id`}
           value={props.id}
           ref={register({ required: true })}
-        />
+        /> */}
       </Grid>
 
       <Divider className={classes.divider} />

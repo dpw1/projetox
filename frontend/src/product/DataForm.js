@@ -85,6 +85,7 @@ export default function DataForm(props) {
           inputRef={register({ required: "Por favor digite uma altura." })}
           error={!!errors.height}
           helperText={errors.height && errors.height.message}
+          defaultValue="1"
         />
         {errors.height && errors.height.message}
       </Grid>
@@ -100,6 +101,7 @@ export default function DataForm(props) {
           error={!!errors.width}
           helperText={errors.width && errors.width.message}
           inputRef={register({ required: true })}
+          defaultValue="1"
         />
       </Grid>
       <Grid item {...gridSize}>
@@ -112,6 +114,7 @@ export default function DataForm(props) {
             startAdornment: <InputAdornment position="start">m</InputAdornment>,
           }}
           inputRef={register({ required: true })}
+          defaultValue="1"
         />
       </Grid>
       <Grid item {...gridSize}>
@@ -126,6 +129,7 @@ export default function DataForm(props) {
             ),
           }}
           inputRef={register({ required: true })}
+          defaultValue="1"
         />
       </Grid>
     </div>

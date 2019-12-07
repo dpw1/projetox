@@ -29,11 +29,11 @@ class VariationSerializer(serializers.ModelSerializer):
         model = Variation
         fields = ('product_id',
                   'id',
-                  'variation_id',
+
                   'ean',
                   'sku',
                   'name',
-                  'description',
+
                   'picture_1',
                   'update_date',
                   'creation_date',)

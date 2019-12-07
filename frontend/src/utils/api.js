@@ -5,6 +5,7 @@ import {
   API_USER,
   API_LOGOUT,
   API_LOGIN,
+  API_PRODUCTS,
   API_VARIATIONS,
 } from "../assets/urls";
 import { setCookie, eraseCookie } from "./helpers";
@@ -30,7 +31,6 @@ export const getUserData = async () => {
 
   user && localStorage.setItem(LOCALSTORAGE_USER, JSON.stringify(user));
 
-  console.log(user);
   return user ? user : false;
 };
 
@@ -56,38 +56,28 @@ export const login = async data => {
  * POST: Logout request to API.
  */
 export const logout = async props => {
+  // debugger;
   try {
     await axios.post(API_LOGOUT, {
       headers: {
         Authorization: `Token ${token}`,
       },
     });
-    eraseCookie("token");
-    localStorage.removeItem(LOCALSTORAGE_USER);
-    window.location.reload();
+
+    const cleanData = () => {
+      eraseCookie("token");
+      localStorage.removeItem(LOCALSTORAGE_USER);
+      window.location.reload();
+    };
+
+    setTimeout(() => cleanData(), 50);
   } catch (err) {
     console.log(err);
   }
-
-  // await axios
-  // .post(API_LOGOUT, {
-  //   headers: {
-  //     Authorization: `Token ${token}`,
-  //   },
-  // })
-  // .then(res => {
-  //   eraseCookie("token");
-  //   window.location.reload();
-  // })
-  // .catch(error => {
-  //   if (error.response) {
-  //     console.log(error.response.data); // => the response payload
-  //   }
-  // });
 };
 
 /**
- * POST: Search for a variation.
+ * GET: Search for a variation.
  * The fields to search for are set on the backend.
  * Currently (December 2019) it's possible to search only for EAN codes.
  */
@@ -107,5 +97,21 @@ export const searchVariation = async (value = "") => {
   } catch (err) {
     console.log(err);
     return [];
+  }
+};
+
+/**
+ * POST: Create a new product.
+ */
+
+export const createProduct = async (data = "") => {
+  try {
+    await axios.post(API_PRODUCTS, data, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+  } catch (err) {
+    return err;
   }
 };
