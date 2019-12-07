@@ -5,7 +5,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Collapse from "@material-ui/core/Collapse";
-// Icons
+import HomeIcon from "@material-ui/icons/Home";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -31,7 +31,7 @@ const ListItems = props => {
     <div>
       <ListItem button onClick={() => props.history.push("/")}>
         <ListItemIcon>
-          <DashboardIcon />
+          <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>

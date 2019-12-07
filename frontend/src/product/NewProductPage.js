@@ -84,33 +84,6 @@ export default function NewProductPage() {
   const [blockNextStepButton, setBlockNextStepButton] = useState(false);
   const methods = useForm();
 
-  // testing POST product
-  useEffect(() => {
-    (async () => {
-      const test = {
-        category: "1_1_1_1",
-        created_by: 1,
-        height: "0.00",
-        name: "Postando do react",
-        description: "Videogame",
-
-        width: "0.00",
-        weight: "0.00",
-        length: "0.00",
-        variations: [
-          {
-            ean: "091",
-            sku: "0941",
-            name: "Blue",
-            picture: null,
-          },
-        ],
-      };
-      const res = await createProduct(test);
-      console.log("newproductpage", res);
-    })();
-  }, []);
-
   // useEffect(() => {
   //   console.log("errors", methods.errors);
   // }, [methods.errors]);
@@ -122,7 +95,7 @@ export default function NewProductPage() {
     const cleanData = (() => {
       renameProperty(processedData, "productName", "name");
 
-      // Custmomizable for testing purposes
+      // Customized for testing purposes
       processedData.created_by = user.pk;
       processedData.category = "1_1_1_1";
       processedData.description = "12312123";
@@ -167,12 +140,6 @@ export default function NewProductPage() {
   };
 
   const handleNext = async () => {
-    /**
-     * TODO:
-     * 1. formulate how json will be;
-     * 2. clean up data for the Variations, they should be in specific arrays
-     */
-
     setFormData(prevState => {
       return processData({ ...prevState, ...methods.getValues() });
     });

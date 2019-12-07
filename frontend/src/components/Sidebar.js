@@ -114,7 +114,6 @@ function Sidebar(props) {
   useEffect(() => {
     (async () => {
       const { data } = await getUserData();
-      console.log(data);
       setUser(data);
     })();
   }, []); //
