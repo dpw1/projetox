@@ -13,7 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
-import ListItems from "./ListItems";
+import SidebarItems from "./SidebarItems";
 import { withRouter } from "react-router";
 
 import { URLS } from "../assets/urls";
@@ -183,7 +183,7 @@ function Sidebar(props) {
         </div>
         <Divider />
         <List>
-          <ListItems />
+          <SidebarItems />
         </List>
       </Drawer>
     </div>

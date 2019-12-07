@@ -15,6 +15,7 @@ import LoginPage from "./login/LoginPage";
 import SignUpPage from "./signup/SignUpPage";
 import NewEANPage from "./product/NewEANPage";
 import NewProductPage from "./product/NewProductPage";
+import MyProductsPage from "./product/MyProductsPage";
 import * as serviceWorker from "./serviceWorker";
 import { getUserData } from "./utils/api";
 import { URLS } from "./assets/urls";
@@ -40,6 +41,7 @@ const render = (
         <PrivateRoute exact path={URLS.dashboard} component={Dashboard} />
         <PrivateRoute exact path={URLS.newProductEan} component={NewEANPage} />
         <PrivateRoute exact path={URLS.newProduct} component={NewProductPage} />
+        <PrivateRoute exact path={URLS.myProducts} component={MyProductsPage} />
       </Switch>
     </BrowserRouter>
   </div>

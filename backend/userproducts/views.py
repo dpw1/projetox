@@ -19,7 +19,6 @@ class UserProductViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         user_id = self.request.user.id
-        print(user_id)
         queryset = UserProduct.objects.filter(user=user_id)
         serializer = UserProductSerializer(queryset, many=True)
         return Response(serializer.data)

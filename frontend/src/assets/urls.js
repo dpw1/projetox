@@ -6,6 +6,7 @@ export const URLS = {
   newProduct: "/products/new",
   signUp: "/signup",
   login: "/login",
+  myProducts: "/products",
 };
 
 export const API = "http://127.0.0.1:8000/api/v1";

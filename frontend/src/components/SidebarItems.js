@@ -53,7 +53,8 @@ const ListItems = props => {
             </ListItemIcon>
             <ListItemText primary="Cadastrar" />
           </ListItem>
-          <ListItem button>
+
+          <ListItem button onClick={() => props.history.push(URLS.myProducts)}>
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
