@@ -19,6 +19,8 @@ export default function EANForm() {
   const handleOnChange = async e => {
     const variations = await searchVariation(e);
 
+    console.log(variations);
+
     let cleanedVariations = variations.map(({ product_name, ean }) => {
       return {
         label: product_name,
