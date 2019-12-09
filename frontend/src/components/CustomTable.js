@@ -245,6 +245,17 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
+    "& .MuiTablePagination-toolbar .MuiTablePagination-selectRoot": {
+      [theme.breakpoints.down("xs")]: {
+        marginLeft: 0,
+        marginRight: 8,
+      },
+    },
+    "& .MuiTablePagination-toolbar .MuiTablePagination-actions": {
+      [theme.breakpoints.down("xs")]: {
+        marginLeft: 5,
+      },
+    },
   },
   paper: {
     width: "100%",
@@ -407,6 +418,7 @@ export default function CustomTable(props) {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
           labelRowsPerPage="Mostrar: "
+          classes={classes.customTablePagination}
         />
       </Paper>
     </div>
