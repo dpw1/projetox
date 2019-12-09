@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAutoSuggest from "../components/InputAutoSuggest";
 import useForm, { FormContext, useFormContext } from "react-hook-form";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { searchVariation } from "../utils/api";
 import Checkbox from "@material-ui/core/Checkbox";
 import { strings } from "../assets/strings";
@@ -14,11 +15,13 @@ import { strings } from "../assets/strings";
 export default function EANForm() {
   const methods = useForm();
   const [suggestions, setSuggestions] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const onSubmit = data => console.log(data);
 
   const handleOnChange = async e => {
+    setLoading(true);
     const variations = await searchVariation(e);
-
+    setLoading(false);
     console.log(variations);
 
     let cleanedVariations = variations.map(({ product_name, ean }) => {
@@ -43,7 +46,12 @@ export default function EANForm() {
       <FormContext {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
-            <Grid item xs={10}>
+            <Grid item xs={10} style={{ position: "relative" }}>
+              {loading && (
+                <div style={{ position: "absolute", right: 30, top: 26 }}>
+                  <CircularProgress size={24} />
+                </div>
+              )}
               <InputAutoSuggest
                 label="EAN"
                 id="EANInput"
@@ -59,6 +67,7 @@ export default function EANForm() {
                 <SearchIcon />
               </IconButton>
             </Grid>
+            <Grid item xs={12} />
           </Grid>
         </form>
       </FormContext>

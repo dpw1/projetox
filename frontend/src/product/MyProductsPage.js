@@ -20,6 +20,7 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import CustomTable from "../components/CustomTable";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
 
@@ -57,6 +58,9 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240,
   },
+  title: {
+    padding: `${theme.spacing(3)}px 0`,
+  },
 }));
 
 export default function MyProductsPage() {
@@ -69,7 +73,73 @@ export default function MyProductsPage() {
       <Sidebar />
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
-          <h1>my products</h1>
+          <Typography
+            component="h1"
+            variant="h4"
+            align="center"
+            className={classes.title}>
+            Meus Produtos
+          </Typography>
+          <CustomTable
+            rowsData={[
+              {
+                name: "Cupcake (from props)",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Ice-Cream",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Cookies",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Lasagna",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Strogonoff",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Barbecue",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Burger",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+              {
+                name: "Pizza",
+                calories: 305,
+                fat: 3.7,
+                carbs: 67,
+                protein: 4.3,
+              },
+            ]}
+          />
           <Copyright />
         </Container>
       </main>
