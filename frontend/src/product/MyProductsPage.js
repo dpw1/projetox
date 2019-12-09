@@ -23,6 +23,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import CustomTable from "../components/CustomTable";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
+import { formatMoney } from "../utils/helpers";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,62 +82,60 @@ export default function MyProductsPage() {
             Meus Produtos
           </Typography>
           <CustomTable
+            headCells={[
+              {
+                id: "sku",
+                numeric: false,
+                disablePadding: true,
+                label: "Seu SKU",
+              },
+              {
+                id: "id",
+                numeric: true,
+                disablePadding: false,
+                label: "ID",
+              },
+              {
+                id: "name",
+                numeric: true,
+                disablePadding: false,
+                label: "Nome",
+              },
+              {
+                id: "varations",
+                numeric: true,
+                disablePadding: false,
+                label: "Variantes",
+              },
+              {
+                id: "available",
+                numeric: true,
+                disablePadding: false,
+                label: "Publicado",
+              },
+              {
+                id: "quantity",
+                numeric: true,
+                disablePadding: false,
+                label: "Estoque [disponível]",
+              },
+              {
+                id: "price",
+                numeric: true,
+                disablePadding: false,
+                label: "Preço",
+              },
+            ]}
             rowsData={[
               {
-                name: "Cupcake (from props)",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Ice-Cream",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Cookies",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Lasagna",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Strogonoff",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Barbecue",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Burger",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
-              },
-              {
-                name: "Pizza",
-                calories: 305,
-                fat: 3.7,
-                carbs: 67,
-                protein: 4.3,
+                sku: "12914",
+                id: "305",
+                name:
+                  "Esponja Mini Elétrica Massageadora Para Limpeza Facial Pink",
+                variations: 1,
+                available: "Sim",
+                quantity: 40,
+                price: formatMoney(10000.45),
               },
             ]}
           />

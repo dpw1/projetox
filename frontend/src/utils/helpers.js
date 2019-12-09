@@ -87,3 +87,20 @@ export function renameProperty(obj, oldName, newName) {
   }
   return obj;
 }
+
+/**
+ *
+ * @param {float} amount - quantity to be formatted to money.
+ * @param {string} currency - currency wanted.
+ */
+
+export function formatMoney(amount, currency = "brl") {
+  if (!amount) throw new Error("Please add an amount.");
+
+  if (currency.toLowerCase() === "brl") {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(amount);
+  }
+}

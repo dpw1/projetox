@@ -107,18 +107,18 @@ function getSorting(order, orderBy) {
     : (a, b) => -desc(a, b, orderBy);
 }
 
-const headCells = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
-  },
-  { id: "calories", numeric: true, disablePadding: false, label: "Calories" },
-  { id: "fat", numeric: true, disablePadding: false, label: "Fat (g)" },
-  { id: "carbs", numeric: true, disablePadding: false, label: "Carbs (g)" },
-  { id: "protein", numeric: true, disablePadding: false, label: "Protein (g)" },
-];
+// const headCells = [
+//   {
+//     id: "name",
+//     numeric: false,
+//     disablePadding: true,
+//     label: "Dessert (100g serving)",
+//   },
+//   { id: "calories", numeric: true, disablePadding: false, label: "Calories" },
+//   { id: "fat", numeric: true, disablePadding: false, label: "Fat (g)" },
+//   { id: "carbs", numeric: true, disablePadding: false, label: "Carbs (g)" },
+//   { id: "protein", numeric: true, disablePadding: false, label: "Protein (g)" },
+// ];
 
 function EnhancedTableHead(props) {
   const {
@@ -129,6 +129,7 @@ function EnhancedTableHead(props) {
     numSelected,
     rowCount,
     onRequestSort,
+    headCells,
   } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
@@ -288,7 +289,7 @@ export default function CustomTable(props) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { rowsData } = props;
+  const { rowsData, headCells } = props;
 
   const rows = rowsData || dummyData();
 
@@ -363,6 +364,7 @@ export default function CustomTable(props) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              headCells={headCells}
             />
             <TableBody>
               {stableSort(rows, getSorting(order, orderBy))
@@ -370,7 +372,9 @@ export default function CustomTable(props) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
+                  const values = Object.values(row);
 
+                  console.log(values);
                   return (
                     <TableRow
                       hover
@@ -386,8 +390,14 @@ export default function CustomTable(props) {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      <TableCell
-                        onClick={event => handleClick(event, row.name)}
+
+                      {values.map((each, i) => (
+                        <TableCell key={i} align="right">
+                          {each}
+                        </TableCell>
+                      ))}
+
+                      {/* <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
@@ -397,7 +407,7 @@ export default function CustomTable(props) {
                       <TableCell align="right">{row.calories}</TableCell>
                       <TableCell align="right">{row.fat}</TableCell>
                       <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
                 })}
@@ -418,6 +428,9 @@ export default function CustomTable(props) {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
           labelRowsPerPage="Mostrar: "
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to === -1 ? count : to} de ${count}`
+          }
           classes={classes.customTablePagination}
         />
       </Paper>
