@@ -16,6 +16,7 @@ class UserProductViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = UserProduct.objects.all()
     serializer_class = UserProductSerializer
+    lookup_field = 'product'
 
     def list(self, request):
         user_id = self.request.user.id
