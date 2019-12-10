@@ -104,3 +104,11 @@ export function formatMoney(amount, currency = "brl") {
     }).format(amount);
   }
 }
+
+/**
+ *
+ * @param {int} ms - miliseconds to wait for. Works only inside async functions.
+ */
+export function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

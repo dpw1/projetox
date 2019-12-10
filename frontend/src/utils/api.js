@@ -7,6 +7,7 @@ import {
   API_LOGIN,
   API_PRODUCTS,
   API_VARIATIONS,
+  API_USER_PRODUCTS,
 } from "../assets/urls";
 import { setCookie, eraseCookie } from "./helpers";
 
@@ -113,6 +114,24 @@ export const createProduct = async (data = "") => {
     });
     return product;
   } catch (err) {
+    return err;
+  }
+};
+
+/**
+ * POST: Create a new user product.
+ */
+
+export const createUserProduct = async (data = "") => {
+  try {
+    const userProduct = await axios.post(API_USER_PRODUCTS, data, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return userProduct;
+  } catch (err) {
+    console.log(err);
     return err;
   }
 };

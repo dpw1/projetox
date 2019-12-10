@@ -22,7 +22,7 @@ import VariationForm from "./VariationForm";
 import { URLS } from "../assets/urls";
 import { renameProperty } from "../utils/helpers";
 import uuid from "uuid";
-import { getUserData, createProduct } from "../utils/api";
+import { getUserData, createProduct, createUserProduct } from "../utils/api";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -90,6 +90,7 @@ export default function NewProductPage() {
 
   const onSubmit = async data => {
     const { data: user } = await getUserData();
+
     let rawProduct = processData(data);
     let product = processData(data);
 
@@ -112,18 +113,20 @@ export default function NewProductPage() {
 
     const cleanUserProductData = createdProduct => {
       const { variations: rawVariations } = rawProduct;
-      debugger;
       let userProducts = [];
 
       createdProduct.variations.map((each, index) => {
+        console.log(rawVariations[index]);
         const userProduct = {
           user: createdProduct.created_by,
           product: createdProduct.id,
           variation: each.id,
           quantity: rawVariations[index].quantity,
-          price: rawVariations[index].price,
-          price_mercado_livre: rawVariations[index].price_mercado_livre,
-          price_submarino: rawVariations[index].price_submarino,
+          price: parseInt(rawVariations[index].price || 0),
+          price_mercado_livre: parseInt(
+            rawVariations[index].price_mercado_livre || 0,
+          ),
+          price_submarino: parseInt(rawVariations[index].price_submarino || 0),
           available: true,
         };
 
@@ -143,11 +146,13 @@ export default function NewProductPage() {
         cleanProductData(product),
       );
 
-      // const {data: createdUserProduct} = await createdUserProduct(
-      //   cleanUserProductData(createdProduct);
-      // )
+      console.log(createdProduct);
 
-      console.log(cleanUserProductData(createdProduct));
+      const { data: createdUserProduct } = await createUserProduct(
+        cleanUserProductData(createdProduct),
+      );
+
+      console.log(createdUserProduct);
     })();
   };
 

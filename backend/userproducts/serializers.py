@@ -3,8 +3,6 @@ from .models import UserProduct
 
 
 class UserProductSerializer(serializers.ModelSerializer):
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     def __init__(self, *args, **kwargs):
         many = kwargs.pop('many', True)
