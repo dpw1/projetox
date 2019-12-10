@@ -90,12 +90,18 @@ export function renameProperty(obj, oldName, newName) {
 
 /**
  *
- * @param {float} amount - quantity to be formatted to money.
+ * @param {int} amount - quantity to be formatted to money.
  * @param {string} currency - currency wanted.
  */
 
 export function formatMoney(amount, currency = "brl") {
-  if (!amount) throw new Error("Please add an amount.");
+  const catchErrors = (() => {
+    if (!amount) throw new Error("Please add an amount.");
+    if (amount < 0)
+      throw new Error("Please only use only positive Integer values.");
+  })();
+
+  parseInt((amount *= 0.01));
 
   if (currency.toLowerCase() === "brl") {
     return new Intl.NumberFormat("pt-BR", {

@@ -374,7 +374,6 @@ export default function CustomTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   const values = Object.values(row);
 
-                  console.log(values);
                   return (
                     <TableRow
                       hover
@@ -396,18 +395,6 @@ export default function CustomTable(props) {
                           {each}
                         </TableCell>
                       ))}
-
-                      {/* <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell> */}
                     </TableRow>
                   );
                 })}
