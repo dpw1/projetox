@@ -135,3 +135,23 @@ export const createUserProduct = async (data = "") => {
     return err;
   }
 };
+
+/**
+ * GET: Search for a variation.
+ * The fields to search for are set on the backend.
+ * Currently (December 2019) it's possible to search only for EAN codes.
+ */
+
+export const getUserProducts = async () => {
+  try {
+    const { data } = await axios.get(API_USER_PRODUCTS, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};

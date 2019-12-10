@@ -90,7 +90,7 @@ export function renameProperty(obj, oldName, newName) {
 
 /**
  *
- * @param {int} amount - quantity to be formatted to money.
+ * @param {int} amount - quantity in cents to be formatted to money.
  * @param {string} currency - currency wanted.
  */
 
@@ -101,7 +101,7 @@ export function formatMoney(amount, currency = "brl") {
       throw new Error("Please only use only positive Integer values.");
   })();
 
-  parseInt((amount *= 0.01));
+  parseInt((amount /= 100));
 
   if (currency.toLowerCase() === "brl") {
     return new Intl.NumberFormat("pt-BR", {

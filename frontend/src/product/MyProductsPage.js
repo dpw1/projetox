@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,6 +24,7 @@ import CustomTable from "../components/CustomTable";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
 import { formatMoney } from "../utils/helpers";
+import { getUserProducts } from "../utils/api";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,6 +68,14 @@ const useStyles = makeStyles(theme => ({
 export default function MyProductsPage() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [userProducts, setUserProducts] = useState([]);
+
+  useEffect(() => {
+    const userProducts = (async () => {
+      const products = await getUserProducts();
+      setUserProducts(products);
+    })();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -82,6 +91,7 @@ export default function MyProductsPage() {
             Meus Produtos
           </Typography>
           <CustomTable
+            title="Produtos"
             headCells={[
               {
                 id: "sku",
@@ -135,7 +145,7 @@ export default function MyProductsPage() {
                 variations: 1,
                 available: "Sim",
                 quantity: 40,
-                price: formatMoney(10000.45),
+                price: formatMoney(100),
               },
             ]}
           />

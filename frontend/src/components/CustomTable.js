@@ -149,8 +149,8 @@ function EnhancedTableHead(props) {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "default"}
+            align={"center"}
+            padding={"default"}
             sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -202,7 +202,7 @@ const useToolbarStyles = makeStyles(theme => ({
 
 const EnhancedTableToolbar = props => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, title } = props;
 
   return (
     <Toolbar
@@ -218,20 +218,14 @@ const EnhancedTableToolbar = props => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle">
-          Nutrition
+          {title}
         </Typography>
       )}
 
-      {numSelected > 0 ? (
+      {numSelected > 0 && (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
             <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
           </IconButton>
         </Tooltip>
       )}
@@ -289,7 +283,7 @@ export default function CustomTable(props) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { rowsData, headCells } = props;
+  const { rowsData, headCells, title } = props;
 
   const rows = rowsData || dummyData();
 
@@ -349,7 +343,10 @@ export default function CustomTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          title={title || ""}
+        />
         <div className={classes.tableWrapper}>
           <Table
             className={classes.table}
@@ -391,7 +388,7 @@ export default function CustomTable(props) {
                       </TableCell>
 
                       {values.map((each, i) => (
-                        <TableCell key={i} align="right">
+                        <TableCell key={i} align="left">
                           {each}
                         </TableCell>
                       ))}

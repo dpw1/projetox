@@ -116,7 +116,6 @@ export default function NewProductPage() {
       let userProducts = [];
 
       createdProduct.variations.map((each, index) => {
-        console.log(rawVariations[index]);
         const userProduct = {
           user: createdProduct.created_by,
           product: createdProduct.id,
@@ -136,17 +135,10 @@ export default function NewProductPage() {
       return userProducts;
     };
 
-    /** TODO:
-     * 1. Cadastrar /Product
-     * 2. Cadastrar /UserProducts com um array das variations */
-
-    // Cadastrar Product
     (async () => {
       const { data: createdProduct } = await createProduct(
         cleanProductData(product),
       );
-
-      console.log(createdProduct);
 
       const { data: createdUserProduct } = await createUserProduct(
         cleanUserProductData(createdProduct),
