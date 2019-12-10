@@ -9,6 +9,7 @@ import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import { getNodeById } from "../utils/helpers";
 import { useFormContext } from "react-hook-form";
+import InputMask from "react-input-mask";
 
 import {
   productCategories,
@@ -154,6 +155,7 @@ export default function CategoryForm(props) {
               );
             }}
           />
+
           {/* <p>{errors.productName && errors.productName.message}</p> */}
         </Grid>
       </Grid>

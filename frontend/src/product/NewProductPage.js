@@ -90,32 +90,64 @@ export default function NewProductPage() {
 
   const onSubmit = async data => {
     const { data: user } = await getUserData();
-    let processedData = processData(data);
+    let rawProduct = processData(data);
+    let product = processData(data);
 
-    const cleanData = (() => {
-      renameProperty(processedData, "productName", "name");
-
-      // Customized for testing purposes
-      processedData.created_by = user.pk;
-      processedData.category = "1_1_1_1";
-      processedData.description = "12312123";
-      processedData.variations.map(e => {
+    const cleanProductData = rawData => {
+      const cleanedData = { ...rawData };
+      renameProperty(cleanedData, "productName", "name");
+      cleanedData.created_by = user.pk;
+      cleanedData.category = "1_1_1_1";
+      cleanedData.description = "12312123";
+      cleanedData.variations.map(e => {
         e.picture = null;
         delete e.price;
         delete e.price_submarino;
         delete e.price_mercado_livre;
         delete e.quantity;
       });
-    })();
 
-    console.log("submit", processedData);
+      return cleanedData;
+    };
 
-    /** Cadastrar primeiro /Product e depois /userProducts */
+    const cleanUserProductData = createdProduct => {
+      const { variations: rawVariations } = rawProduct;
+      debugger;
+      let userProducts = [];
+
+      createdProduct.variations.map((each, index) => {
+        const userProduct = {
+          user: createdProduct.created_by,
+          product: createdProduct.id,
+          variation: each.id,
+          quantity: rawVariations[index].quantity,
+          price: rawVariations[index].price,
+          price_mercado_livre: rawVariations[index].price_mercado_livre,
+          price_submarino: rawVariations[index].price_submarino,
+          available: true,
+        };
+
+        userProducts.push(userProduct);
+      });
+
+      return userProducts;
+    };
+
+    /** TODO:
+     * 1. Cadastrar /Product
+     * 2. Cadastrar /UserProducts com um array das variations */
 
     // Cadastrar Product
-    const productCreation = (async () => {
-      const res = await createProduct(processedData);
-      console.log(res);
+    (async () => {
+      const { data: createdProduct } = await createProduct(
+        cleanProductData(product),
+      );
+
+      // const {data: createdUserProduct} = await createdUserProduct(
+      //   cleanUserProductData(createdProduct);
+      // )
+
+      console.log(cleanUserProductData(createdProduct));
     })();
   };
 

@@ -9,9 +9,6 @@ from rest_auth.registration.serializers import RegisterSerializer
 
 class VariationSerializer(serializers.ModelSerializer):
 
-    def validate_product_id(self, data):
-        print(data)
-
     def validate(self, data):
         """
         Check that the start is before the stop.
@@ -29,11 +26,9 @@ class VariationSerializer(serializers.ModelSerializer):
         model = Variation
         fields = ('product_id',
                   'id',
-
                   'ean',
                   'sku',
                   'name',
-
                   'picture_1',
                   'update_date',
                   'creation_date',)

@@ -263,7 +263,7 @@ export default function Variation(props) {
           <TextField
             label="Quantidade *"
             className={clsx(classes.textField)}
-            type="text"
+            type="number"
             name={`${formId}-quantity`}
             inputRef={register({ required: true })}
             inputProps={{

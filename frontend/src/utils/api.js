@@ -106,11 +106,12 @@ export const searchVariation = async (value = "") => {
 
 export const createProduct = async (data = "") => {
   try {
-    await axios.post(API_PRODUCTS, data, {
+    const product = await axios.post(API_PRODUCTS, data, {
       headers: {
         Authorization: `Token ${token}`,
       },
     });
+    return product;
   } catch (err) {
     return err;
   }

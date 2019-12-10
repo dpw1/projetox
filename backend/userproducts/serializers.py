@@ -6,10 +6,15 @@ class UserProductSerializer(serializers.ModelSerializer):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    def __init__(self, *args, **kwargs):
+        many = kwargs.pop('many', True)
+        super(UserProductSerializer, self).__init__(many=many, *args, **kwargs)
+
     class Meta:
         model = UserProduct
         fields = ('user',
                   'product',
+                  'variation',
                   'quantity',
                   'price',
                   'price_mercado_livre',

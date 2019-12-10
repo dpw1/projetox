@@ -9,10 +9,11 @@ from rest_framework import filters
 
 from .models import UserProduct
 from .serializers import UserProductSerializer
+from .mixins import CreateListModelMixin
 # Create your views here.
 
 
-class UserProductViewSet(viewsets.ModelViewSet):
+class UserProductViewSet(CreateListModelMixin, viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = UserProduct.objects.all()
     serializer_class = UserProductSerializer
