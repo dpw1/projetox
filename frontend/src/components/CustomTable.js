@@ -18,6 +18,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import uuid from "uuid";
 
@@ -224,11 +225,19 @@ const EnhancedTableToolbar = props => {
       )}
 
       {numSelected > 0 && (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <React.Fragment>
+          <Tooltip title="Delete">
+            <IconButton aria-label="deletar">
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Edit">
+            <IconButton aria-label="editar">
+              <CreateIcon />
+            </IconButton>
+          </Tooltip>
+        </React.Fragment>
       )}
     </Toolbar>
   );
@@ -296,7 +305,7 @@ export default function CustomTable(props) {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = rows.map(n => n.name);
+      const newSelecteds = rows.map(n => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -336,7 +345,7 @@ export default function CustomTable(props) {
     setDense(event.target.checked);
   };
 
-  const isSelected = name => selected.indexOf(name) !== -1;
+  const isSelected = id => selected.indexOf(id) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -368,7 +377,7 @@ export default function CustomTable(props) {
               {stableSort(rows, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   const values = Object.values(row);
 
@@ -382,7 +391,7 @@ export default function CustomTable(props) {
                       selected={isItemSelected}>
                       <TableCell padding="checkbox">
                         <Checkbox
-                          onClick={event => handleClick(event, row.name)}
+                          onClick={event => handleClick(event, row.id)}
                           checked={isItemSelected}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
