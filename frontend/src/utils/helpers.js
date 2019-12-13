@@ -96,7 +96,7 @@ export function renameProperty(obj, oldName, newName) {
 
 export function formatMoney(amount, currency = "brl") {
   const catchErrors = (() => {
-    if (!amount) throw new Error("Please add an amount.");
+    if (amount === null) throw new Error("Please add an amount.");
     if (amount < 0)
       throw new Error("Please only use only positive Integer values.");
   })();
@@ -115,6 +115,29 @@ export function formatMoney(amount, currency = "brl") {
  *
  * @param {int} ms - miliseconds to wait for. Works only inside async functions.
  */
+
 export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Sorts the order of an array of objects.
+ * For instance, given the following array: [{name: 'abc', id: 1}]
+ * you could change its order to [{id: 1, name: 'abc'}]
+ *
+ * @param {array} arr - array of objects.
+ * @param {object} sortOrder - order you want for the new array of objects.
+ */
+
+export function sortObjectsOrder(arr, sortOrder) {
+  return arr.map(o =>
+    Object.assign(
+      {},
+      ...Object.keys(o)
+        .sort((a, b) => sortOrder[a] - sortOrder[b])
+        .map(x => {
+          return { [x]: o[x] };
+        }),
+    ),
+  );
 }

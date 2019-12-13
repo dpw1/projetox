@@ -82,17 +82,21 @@ export default function NewProductPage() {
   const [formData, setFormData] = useState({});
   const [activeStep, setActiveStep] = useState(0);
   const [blockNextStepButton, setBlockNextStepButton] = useState(false);
+  const [user, setUser] = useState();
   const methods = useForm();
 
-  // useEffect(() => {
-  //   console.log("errors", methods.errors);
-  // }, [methods.errors]);
+  useEffect(() => {
+    (async () => {
+      const { data: currentUser } = await getUserData();
+      setUser(currentUser);
+    })();
+  }, []);
 
   const onSubmit = async data => {
-    const { data: user } = await getUserData();
-
     let rawProduct = processData(data);
     let product = processData(data);
+
+    console.log("submitting");
 
     const cleanProductData = rawData => {
       const cleanedData = { ...rawData };
@@ -143,8 +147,6 @@ export default function NewProductPage() {
       const { data: createdUserProduct } = await createUserProduct(
         cleanUserProductData(createdProduct),
       );
-
-      console.log(createdUserProduct);
     })();
   };
 

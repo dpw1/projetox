@@ -19,6 +19,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import uuid from "uuid";
 
 function dummyData() {
   return [
@@ -377,7 +378,7 @@ export default function CustomTable(props) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={uuid()}
                       selected={isItemSelected}>
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -389,7 +390,7 @@ export default function CustomTable(props) {
 
                       {values.map((each, i) => (
                         <TableCell key={i} align="left">
-                          {each}
+                          <div>{each}</div>
                         </TableCell>
                       ))}
                     </TableRow>

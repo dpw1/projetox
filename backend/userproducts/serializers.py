@@ -4,8 +4,10 @@ from variations.models import Variation
 
 
 class UserProductSerializer(serializers.ModelSerializer):
-    # variations_count = serializers.SerializerMethodField(source='variation')
+    variations_count = serializers.SerializerMethodField(source='variation')
     ean = serializers.CharField(source='variation.ean', read_only=True)
+    sku = serializers.CharField(source='variation.sku', read_only=True)
+    name = serializers.CharField(source='product.name', read_only=True)
 
     def __init__(self, *args, **kwargs):
         many = kwargs.pop('many', True)
@@ -13,11 +15,14 @@ class UserProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProduct
-        fields = ('user',
+        fields = ('id',
+                  'user',
                   'product',
                   'variation',
+                  'name',
                   'ean',
-                  #   'variations_count',
+                  'sku',
+                  'variations_count',
                   'quantity',
                   'price',
                   'price_mercado_livre',
@@ -26,5 +31,5 @@ class UserProductSerializer(serializers.ModelSerializer):
                   'creation_date',
                   'available',)
 
-    # def get_variations_count(self, userProduct):
-    #     return userProduct.objects.filter(variation=variation).count()
+    def get_variations_count(self, userProduct):
+        return 0

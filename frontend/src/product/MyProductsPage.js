@@ -23,9 +23,25 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import CustomTable from "../components/CustomTable";
 import Sidebar from "../components/Sidebar";
 import Copyright from "../components/Copyright";
-import { formatMoney } from "../utils/helpers";
+import { formatMoney, sortObjectsOrder } from "../utils/helpers";
 import { getUserProducts } from "../utils/api";
 
+const dummyDataTable = () => {
+  const data = {
+    sku: "12914",
+    id: "305",
+    name: "Esponja Mini Elétrica Massageadora Para Limpeza Facial Pink",
+    variations: 1,
+    available: "Sim",
+    quantity: 40,
+    price: formatMoney(100),
+  };
+
+  const headRows = Object.keys(data);
+  return { data, headRows };
+};
+
+console.log();
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -71,11 +87,48 @@ export default function MyProductsPage() {
   const [userProducts, setUserProducts] = useState([]);
 
   useEffect(() => {
-    const userProducts = (async () => {
+    const cleanUserProducts = (async () => {
       const products = await getUserProducts();
-      setUserProducts(products);
+
+      const updatedProducts = (() => {
+        if (products.length < 1) return;
+
+        let tempProducts = [...products];
+
+        tempProducts.map(each => {
+          delete each.user;
+          delete each.variation;
+          delete each.price_mercado_livre;
+          delete each.price_submarino;
+          delete each.creation_date;
+          delete each.update_date;
+          delete each.ean;
+          delete each.product;
+
+          each["price"] = formatMoney(each.price);
+          each["available"] = each.available ? "Sim" : "Não";
+
+          return each;
+        });
+
+        return sortObjectsOrder(tempProducts, {
+          sku: 1,
+          id: 2,
+          name: 3,
+          variations_count: 4,
+          available: 5,
+          quantity: 6,
+          price: 7,
+        });
+      })();
+
+      setUserProducts(updatedProducts);
     })();
   }, []);
+
+  useEffect(() => {
+    // console.log(userProducts);
+  }, [userProducts]);
 
   return (
     <div className={classes.root}>
@@ -119,7 +172,7 @@ export default function MyProductsPage() {
               },
               {
                 id: "available",
-                numeric: true,
+                numeric: false,
                 disablePadding: false,
                 label: "Publicado",
               },
@@ -131,23 +184,24 @@ export default function MyProductsPage() {
               },
               {
                 id: "price",
-                numeric: true,
+                numeric: false,
                 disablePadding: false,
                 label: "Preço",
               },
             ]}
-            rowsData={[
-              {
-                sku: "12914",
-                id: "305",
-                name:
-                  "Esponja Mini Elétrica Massageadora Para Limpeza Facial Pink",
-                variations: 1,
-                available: "Sim",
-                quantity: 40,
-                price: formatMoney(100),
-              },
-            ]}
+            // rowsData={[
+            //   {
+            //     sku: "12914",
+            //     id: "305",
+            //     name:
+            //       "Esponja Mini Elétrica Massageadora Para Limpeza Facial Pink",
+            //     variations: 1,
+            //     available: "Sim",
+            //     quantity: 40,
+            //     price: formatMoney(100),
+            //   },
+            // ]}
+            rowsData={userProducts}
           />
           <Copyright />
         </Container>
