@@ -11,6 +11,10 @@ class ProductSerializer(WritableNestedModelSerializer):
     variations = VariationSerializer(
         many=True, read_only=False)
 
+    def validate_variations(self, value):
+        if not value:
+            raise serializers.ValidationError("Variation can not be empty.")
+
     class Meta:
         model = Product
         fields = ('id', 'created_by', 'name', 'description', 'category', 'height',

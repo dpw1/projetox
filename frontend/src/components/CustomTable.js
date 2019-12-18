@@ -226,13 +226,13 @@ const EnhancedTableToolbar = props => {
 
       {numSelected > 0 && (
         <React.Fragment>
-          <Tooltip title="Delete">
+          <Tooltip title="Deletar">
             <IconButton aria-label="deletar">
               <DeleteIcon />
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Edit">
+          <Tooltip title="Editar">
             <IconButton aria-label="editar">
               <CreateIcon />
             </IconButton>
