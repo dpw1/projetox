@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.conf.urls import url
 
 from . import views
@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:pk>/products/',
          UserProductViewSet.as_view({'get': 'list'})),
     path('authenticate/', views.CustomObtainAuthToken.as_view()),
+    re_path(r'^auth/', include('rest_framework_social_oauth2.urls')),
 ]

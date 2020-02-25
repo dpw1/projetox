@@ -10,7 +10,10 @@ from rest_framework import filters
 from .models import UserProduct
 from .serializers import UserProductSerializer
 from .mixins import CreateListModelMixin
+from .services import get_todos
 # Create your views here.
+
+import json
 
 
 class UserProductViewSet(CreateListModelMixin, viewsets.ModelViewSet):
@@ -23,4 +26,6 @@ class UserProductViewSet(CreateListModelMixin, viewsets.ModelViewSet):
         user_id = self.request.user.id
         queryset = UserProduct.objects.filter(user=user_id)
         serializer = UserProductSerializer(queryset, many=True)
+        # testing!
+        # print(json.loads(get_todos()))
         return Response(serializer.data)

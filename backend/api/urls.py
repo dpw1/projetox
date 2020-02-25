@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.conf.urls import url
 
 # All urls have "api/v1" as a prefix.
 # This is coming from projectx_project.
@@ -11,4 +12,5 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/',
          include('rest_auth.registration.urls')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
