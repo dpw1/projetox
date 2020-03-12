@@ -4,6 +4,7 @@ from django.conf.urls import url
 # All urls have "api/v1" as a prefix.
 # This is coming from projectx_project.
 urlpatterns = [
+    path('meli/', include('meli.urls')),
     path('users/', include('users.urls')),
     path('products/', include('products.urls')),
     path('variations/', include('variations.urls')),
