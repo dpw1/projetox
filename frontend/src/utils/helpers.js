@@ -72,7 +72,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 /**
- * Renames a given property
+ * Renames a given property in an object.
  */
 
 export function renameProperty(obj, oldName, newName) {
@@ -113,7 +113,7 @@ export function formatMoney(amount, currency = "brl") {
 
 /**
  *
- * @param {int} ms - miliseconds to wait for. Works only inside async functions.
+ * @param {int} ms - miliseconds to wait for. Works only within async functions.
  */
 
 export function sleep(ms) {
@@ -122,8 +122,8 @@ export function sleep(ms) {
 
 /**
  * Sorts the order of an array of objects.
- * For instance, given the following array: [{name: 'abc', id: 1}]
- * you could change its order to [{id: 1, name: 'abc'}]
+ * For instance, given the following array: [{a: 1, b: 2, c: 3}]
+ * you could change its order to [{b: 2, a: 1, c: 3}] or [{c: 3, b: 2, a: 1}]
  *
  * @param {array} arr - array of objects.
  * @param {object} sortOrder - order you want for the new array of objects.

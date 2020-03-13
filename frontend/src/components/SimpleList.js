@@ -35,6 +35,7 @@ class SimpleList extends React.Component {
   }
 
   handleClick(index, el) {
+    this.props.customHandleClick(index, el);
     this.updateSelected(index);
     this.props.updateCurrentItem && this.props.updateCurrentItem(el);
   }

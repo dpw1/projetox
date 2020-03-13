@@ -8,6 +8,7 @@ import {
   API_PRODUCTS,
   API_VARIATIONS,
   API_USER_PRODUCTS,
+  API_MELI,
 } from "../assets/urls";
 import { setCookie, eraseCookie } from "./helpers";
 
@@ -119,7 +120,7 @@ export const createProduct = async (data = "") => {
 };
 
 /**
- * POST: Create a new user product.
+ * POST: Add a new product to the currently logged in user's account.
  */
 
 export const createUserProduct = async (data = "") => {
@@ -147,6 +148,69 @@ export const getUserProducts = async () => {
     const { data } = await axios.get(API_USER_PRODUCTS, {
       headers: {
         Authorization: `Token ${token}`,
+      },
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+/**
+ * GET: Search for a product by a variation's EAN.
+ * The fields to search for are set on the backend @ search_fields on products.views.
+ */
+
+export const getProductByEAN = async ean => {
+  const url = `${API_PRODUCTS}?search=${ean}`;
+
+  try {
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+/**
+ * GET: Get all information about current user logged in Mercado Livre.
+ */
+
+export const getMeliData = async () => {
+  try {
+    const { data } = await axios.get(API_MELI, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+/**
+ * GET: Get product categories. (public)
+ */
+
+export const getMeliProductCategories = async (id = "") => {
+  const url =
+    id === ""
+      ? "https://api.mercadolibre.com/sites/MLB/categories"
+      : `https://api.mercadolibre.com/categories/${id}`;
+
+  try {
+    console.log(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        access_token: `APP_USR-3798470433211711-031221-00d101667768f32c039f22efef3b3c25-535628279`,
       },
     });
     return data;

@@ -11,12 +11,22 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { searchVariation } from "../utils/api";
 import Checkbox from "@material-ui/core/Checkbox";
 import { strings } from "../assets/strings";
+import { createUserProduct, getProductByEAN } from "../utils/api";
 
 export default function EANForm() {
   const methods = useForm();
   const [suggestions, setSuggestions] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const onSubmit = data => console.log(data);
+
+  const onSubmit = async ean => {
+    const product = await getProductByEAN(Object.values(ean));
+
+    try {
+      await createUserProduct(product[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleOnChange = async e => {
     setLoading(true);
@@ -24,9 +34,9 @@ export default function EANForm() {
     setLoading(false);
     console.log(variations);
 
-    let cleanedVariations = variations.map(({ product_name, ean }) => {
+    let cleanedVariations = variations.map(({ name, ean }) => {
       return {
-        label: product_name,
+        label: name,
         ean,
       };
     });

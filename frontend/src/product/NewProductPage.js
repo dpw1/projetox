@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ["Categoria", "Dados", "Variações"];
+// const steps = ["Categoria", "Dados", "Variações"];
 
 export default function NewProductPage() {
   const classes = useStyles();
@@ -139,6 +139,9 @@ export default function NewProductPage() {
       return userProducts;
     };
 
+    /**
+     * Creates the product for the "public" database & immediatelly after adds it to the user's account.
+     */
     (async () => {
       const { data: createdProduct } = await createProduct(
         cleanProductData(product),
